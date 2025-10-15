@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "video-tutorials",
+    "slug": "video-tutorials",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "videotutorials",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.videotutorials",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.videotutorials"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/splash-icon.png"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ffaa3c30-30f6-4877-9667-4d24dd07b9fe"
+      }
+    },
+    "owner": "dumitrugotca"
+  }
+}
