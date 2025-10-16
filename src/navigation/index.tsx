@@ -11,8 +11,9 @@ import newspaper from '../assets/newspaper.png';
 import { Home } from './screens/Home';
 import { Profile } from './screens/Profile';
 import { Settings } from './screens/Settings';
-import { Updates } from './screens/Updates';
 import { NotFound } from './screens/NotFound';
+import { Register } from './screens/CarRegister/Register';
+import { InstagramScreen } from './screens/Instagram/InstagramScreen';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -23,21 +24,6 @@ const HomeTabs = createBottomTabNavigator({
         tabBarIcon: ({ color, size }) => (
           <Image
             source={newspaper}
-            tintColor={color}
-            style={{
-              width: size,
-              height: size,
-            }}
-          />
-        ),
-      },
-    },
-    Updates: {
-      screen: Updates,
-      options: {
-        tabBarIcon: ({ color, size }) => (
-          <Image
-            source={bell}
             tintColor={color}
             style={{
               width: size,
@@ -81,6 +67,20 @@ const RootStack = createNativeStackNavigator({
           </HeaderButton>
         ),
       }),
+    },
+    Register: {
+      screen: Register,
+      options: {
+        title: 'Register',
+        headerShown: false,
+      },
+    },
+    Instagram: {
+      screen: InstagramScreen,
+      options: {
+        title: 'Instagram',
+        headerShown: false,
+      },
     },
     NotFound: {
       screen: NotFound,

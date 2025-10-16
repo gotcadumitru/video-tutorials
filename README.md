@@ -1,3 +1,6 @@
+eas build --platform ios --profile development --local
+then open in finder, unzip and drag and drop on the iphone simulator
+
 # Starter Template with React Navigation
 
 This is a minimal starter template for React Native apps using Expo and React Navigation.
