@@ -1,5 +1,5 @@
 import { StaticScreenProps } from '@react-navigation/native';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   PanResponder,
@@ -7,18 +7,57 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
+  StyleSheet,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 type Props = StaticScreenProps<{}>;
 
+// Constants
 const SLIDER_WIDTH = 60;
 const SLIDER_HEIGHT = 130;
 const SUN_ICON_SIZE = 40;
+const SLIDER_BORDER_RADIUS = 40;
+const NUM_SLIDERS = 20;
+const MIN_BRIGHTNESS = 0.3;
+const MAX_BRIGHTNESS = 0.7;
+const GRADIENT_OVERLAY_HEIGHT = 20;
+const MIN_GESTURE_THRESHOLD = 5;
+
+// Colors
+const COLORS = {
+  dark: '#4a3d38',
+  white: '#ffffff',
+  background: '#000000',
+  gradientOverlay: 'rgba(0,0,0,0.3)',
+} as const;
+
+// Animation config
+const SUN_ANIMATION_CONFIG = {
+  tension: 100,
+  friction: 8,
+} as const;
 
 interface BrightnessSliderProps {
   value: number;
   onValueChange: (value: number) => void;
+}
+
+interface GestureEvent {
+  nativeEvent: {
+    pageY: number;
+  };
+}
+
+interface GestureState {
+  dy: number;
+  dx: number;
+}
+
+interface PressEvent {
+  nativeEvent: {
+    locationY: number;
+  };
 }
 
 function BrightnessSlider({ value, onValueChange }: BrightnessSliderProps) {
@@ -28,155 +67,125 @@ function BrightnessSlider({ value, onValueChange }: BrightnessSliderProps) {
   const startValue = useRef(0);
   const containerRef = useRef<View>(null);
   
-  // Animated value for sun position (initialize based on current value)
-  const initialDarkHeight = (1 - value) * SLIDER_HEIGHT;
-  const sunPositionAnim = useRef(new Animated.Value(initialDarkHeight - SUN_ICON_SIZE / 2)).current;
+  // Initialize animated value for sun position
+  const getInitialSunPosition = (brightness: number) => {
+    const darkHeight = (1 - brightness) * SLIDER_HEIGHT;
+    return darkHeight - SUN_ICON_SIZE / 2;
+  };
+  
+  const sunPositionAnim = useRef(
+    new Animated.Value(getInitialSunPosition(value))
+  ).current;
 
-  // Calculate white section height based on brightness value (0 to 1)
-  // Higher value = more white (more bright)
+  // Calculate section heights
   const whiteHeight = currentValue * SLIDER_HEIGHT;
   const darkHeight = SLIDER_HEIGHT - whiteHeight;
   
   // Update sun position anim when value changes (but not during active drag)
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isDragging) {
       const targetPosition = darkHeight - SUN_ICON_SIZE / 2;
       Animated.spring(sunPositionAnim, {
         toValue: targetPosition,
         useNativeDriver: false,
-        tension: 100,
-        friction: 8,
+        ...SUN_ANIMATION_CONFIG,
       }).start();
     }
-  }, [darkHeight, isDragging]);
+  }, [darkHeight, isDragging, sunPositionAnim]);
 
-  React.useEffect(() => {
+  // Sync currentValue with prop value
+  useEffect(() => {
     setCurrentValue(value);
   }, [value]);
+
+  // Helper function to clamp value between 0 and 1
+  const clampBrightness = (val: number): number => Math.max(0, Math.min(1, val));
+
+  // Helper function to calculate brightness from delta
+  const calculateBrightnessFromDelta = (deltaY: number, start: number): number => {
+    const deltaRatio = -deltaY / SLIDER_HEIGHT;
+    return clampBrightness(start + deltaRatio);
+  };
+
+  // Helper function to update sun position
+  const updateSunPosition = (brightness: number) => {
+    const darkHeight = (1 - brightness) * SLIDER_HEIGHT;
+    const sunPosition = darkHeight - SUN_ICON_SIZE / 2;
+    sunPositionAnim.setValue(sunPosition);
+  };
 
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: (_, gestureState) => {
-        // Only activate if vertical movement is greater than horizontal
-        return Math.abs(gestureState.dy) > Math.abs(gestureState.dx) && Math.abs(gestureState.dy) > 5;
+      onMoveShouldSetPanResponder: (_, gestureState: GestureState) => {
+        const isVerticalMovement = Math.abs(gestureState.dy) > Math.abs(gestureState.dx);
+        const exceedsThreshold = Math.abs(gestureState.dy) > MIN_GESTURE_THRESHOLD;
+        return isVerticalMovement && exceedsThreshold;
       },
-      onPanResponderGrant: (evt) => {
+      onPanResponderGrant: (evt: GestureEvent) => {
         setIsDragging(true);
         startY.current = evt.nativeEvent.pageY;
         startValue.current = currentValue;
       },
-      onPanResponderMove: (evt, gestureState) => {
-        // Calculate change based on vertical movement
-        // Dragging down (positive dy) decreases brightness
-        // Dragging up (negative dy) increases brightness
-        const deltaY = gestureState.dy;
-        const sliderHeight = SLIDER_HEIGHT;
-        const deltaRatio = -deltaY / sliderHeight; // Negative because dragging down should decrease
-        const newValue = Math.max(0, Math.min(1, startValue.current + deltaRatio));
+      onPanResponderMove: (_, gestureState: GestureState) => {
+        const newValue = calculateBrightnessFromDelta(
+          gestureState.dy,
+          startValue.current
+        );
         setCurrentValue(newValue);
         onValueChange(newValue);
-        
-        // Update sun position immediately during drag for responsive feedback
-        const newDarkHeight = (1 - newValue) * SLIDER_HEIGHT;
-        const newSunPosition = newDarkHeight - SUN_ICON_SIZE / 2;
-        sunPositionAnim.setValue(newSunPosition);
+        updateSunPosition(newValue);
       },
       onPanResponderRelease: () => {
         setIsDragging(false);
       },
-      onPanResponderTerminationRequest: () => false, // Prevent parent from taking over
+      onPanResponderTerminationRequest: () => false,
     })
   ).current;
 
-  const handlePress = (evt: any) => {
+  const handlePress = (evt: PressEvent) => {
     const { locationY } = evt.nativeEvent;
-    // Top of slider is 0 brightness (dark), bottom is 1 brightness (bright)
-    // locationY: 0 at top, SLIDER_HEIGHT at bottom
-    const newValue = Math.max(0, Math.min(1, 1 - (locationY / SLIDER_HEIGHT)));
+    // Are you gay?
+    const brightnessRatio = 1 - locationY / SLIDER_HEIGHT;
+    const newValue = clampBrightness(brightnessRatio);
     setCurrentValue(newValue);
     onValueChange(newValue);
   };
 
-  // Position of sun icon (always use animated value for smooth updates)
+  const sunIconLeftPosition = (SLIDER_WIDTH - SUN_ICON_SIZE) / 2;
 
   return (
-    <View style={{ margin: 0 }}>
+    <View style={styles.sliderWrapper}>
       <View
         ref={containerRef}
-        style={{
-          width: SLIDER_WIDTH,
-          height: SLIDER_HEIGHT,
-          position: 'relative',
-        }}
+        style={styles.sliderContainer}
         {...panResponder.panHandlers}
       >
         <TouchableOpacity
           activeOpacity={1}
           onPress={handlePress}
-          style={{
-            width: SLIDER_WIDTH,
-            height: SLIDER_HEIGHT,
-            borderRadius: 40,
-            overflow: 'hidden',
-            backgroundColor: '#4a3d38',
-          }}
+          style={styles.sliderTrack}
           disabled={isDragging}
         >
-          {/* Dark section at top */}
-          <View style={{
-            width: '100%',
-            height: darkHeight,
-            backgroundColor: '#4a3d38',
-            borderTopLeftRadius: 40,
-            borderTopRightRadius: 40,
-          }} />
-          
-          {/* White section at bottom */}
-          <View style={{
-            width: '100%',
-            height: whiteHeight,
-            backgroundColor: '#ffffff',
-            borderBottomLeftRadius: 40,
-            borderBottomRightRadius: 40,
-            position: 'relative',
-          }}>
-            {/* Gradient overlay for smooth transition */}
+          <View style={[styles.darkSection, { height: darkHeight }]} />
+          <View style={[styles.whiteSection, { height: whiteHeight }]}>
             <LinearGradient
-              colors={['rgba(0,0,0,0.3)', 'transparent']}
+              colors={[COLORS.gradientOverlay, 'transparent']}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 20,
-              }}
+              style={styles.gradientOverlay}
             />
           </View>
         </TouchableOpacity>
         
-        {/* Sun icon at the boundary between dark and white, positioned absolutely relative to container */}
         <Animated.View
-          style={{
-            position: 'absolute',
-            left: (SLIDER_WIDTH - SUN_ICON_SIZE) / 2,
-            width: SUN_ICON_SIZE,
-            height: SUN_ICON_SIZE,
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 10,
-            top: sunPositionAnim,
-          }}
+          style={[
+            styles.sunIconContainer,
+            { left: sunIconLeftPosition, top: sunPositionAnim },
+          ]}
         >
-          <View style={{
-            width: SUN_ICON_SIZE,
-            height: SUN_ICON_SIZE,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-            <Text style={{ fontSize: 36 }}>☀️</Text>
+          <View style={styles.sunIconWrapper}>
+            <Text style={styles.sunIcon}>☀️</Text>
           </View>
         </Animated.View>
       </View>
@@ -184,43 +193,37 @@ function BrightnessSlider({ value, onValueChange }: BrightnessSliderProps) {
   );
 }
 
+// Helper function to generate random brightness levels
+const generateRandomBrightnessLevels = (count: number): number[] => {
+  return Array(count)
+    .fill(0)
+    .map(() => Math.random() * (MAX_BRIGHTNESS - MIN_BRIGHTNESS) + MIN_BRIGHTNESS);
+};
+
 export function BrightnessControl({}: Props) {
   const [brightnessLevels, setBrightnessLevels] = useState<number[]>(
-    Array(20).fill(0).map(() => Math.random() * 0.4 + 0.3)
+    generateRandomBrightnessLevels(NUM_SLIDERS)
   );
 
   const updateBrightness = (index: number, value: number) => {
-    const newLevels = [...brightnessLevels];
-    newLevels[index] = value;
-    setBrightnessLevels(newLevels);
+    setBrightnessLevels((prevLevels) => {
+      const newLevels = [...prevLevels];
+      newLevels[index] = value;
+      return newLevels;
+    });
   };
 
   return (
-    <View style={{
-      flex: 1,
-      backgroundColor: '#000000',
-    }}>
+    <View style={styles.container}>
       <ScrollView 
-        style={{
-          flex: 1,
-        }}
-        contentContainerStyle={{
-          padding: 20,
-          paddingTop: 60,
-          paddingBottom: 40,
-          alignItems: 'center',
-        }}
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
-        horizontal={false}
         scrollEventThrottle={16}
         nestedScrollEnabled={true}
       >
-        <View style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: 20,
-        }}>
+        <View style={styles.slidersGrid}>
+          {/* WTF are you doing? */}
           {brightnessLevels.map((level, index) => (
             <BrightnessSlider
               key={index}
@@ -233,4 +236,78 @@ export function BrightnessControl({}: Props) {
     </View>
   );
 }
+// I love you
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingTop: 60,
+    paddingBottom: 40,
+    alignItems: 'center',
+  },
+  slidersGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 20,
+  },
+  sliderWrapper: {
+    margin: 0,
+  },
+  sliderContainer: {
+    width: SLIDER_WIDTH,
+    height: SLIDER_HEIGHT,
+    position: 'relative',
+  },
+  sliderTrack: {
+    width: SLIDER_WIDTH,
+    height: SLIDER_HEIGHT,
+    borderRadius: SLIDER_BORDER_RADIUS,
+    overflow: 'hidden',
+    backgroundColor: COLORS.dark,
+  },
+  darkSection: {
+    width: '100%',
+    backgroundColor: COLORS.dark,
+    borderTopLeftRadius: SLIDER_BORDER_RADIUS,
+    borderTopRightRadius: SLIDER_BORDER_RADIUS,
+  },
+  whiteSection: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    borderBottomLeftRadius: SLIDER_BORDER_RADIUS,
+    borderBottomRightRadius: SLIDER_BORDER_RADIUS,
+    position: 'relative',
+  },
+  gradientOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: GRADIENT_OVERLAY_HEIGHT,
+  },
+  sunIconContainer: {
+    position: 'absolute',
+    width: SUN_ICON_SIZE,
+    height: SUN_ICON_SIZE,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  sunIconWrapper: {
+    width: SUN_ICON_SIZE,
+    height: SUN_ICON_SIZE,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sunIcon: {
+    fontSize: 36,
+  },
+});
 
