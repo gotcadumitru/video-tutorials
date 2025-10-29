@@ -10,6 +10,10 @@ export function Home() {
       <Button screen="Settings">Go to Settings</Button>
       <Button screen="Register">Go to Register</Button>
       <Button screen="Instagram">Go to Instagram</Button>
+      <Button screen="Calculator" params={{}}>Go to Calculator</Button>
+      <Button screen="WindowsPhone" params={{}}>Go to Windows Phone</Button>
+      <Button screen="BrightnessControl" params={{}}>Go to Brightness Control</Button>
+      <Button screen="BrightnessControl2">Go to Brightness Control 2</Button>
     </View>
   );
 }

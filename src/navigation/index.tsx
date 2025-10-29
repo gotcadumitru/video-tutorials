@@ -14,6 +14,10 @@ import { Settings } from './screens/Settings';
 import { NotFound } from './screens/NotFound';
 import { Register } from './screens/CarRegister/Register';
 import { InstagramScreen } from './screens/Instagram/InstagramScreen';
+import { Calculator } from './screens/Calculator';
+import { WindowsPhone } from './screens/WindowsPhone';
+import { BrightnessControl } from './screens/BrightnessControl/BrightnessControl';
+import ControlScreen from './screens/BrightnessControl/BrightnessControl2';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -79,6 +83,34 @@ const RootStack = createNativeStackNavigator({
       screen: InstagramScreen,
       options: {
         title: 'Instagram',
+        headerShown: false,
+      },
+    },
+    Calculator: {
+      screen: Calculator,
+      options: {
+        title: 'Calculator',
+        headerShown: false,
+      },
+    },
+    WindowsPhone: {
+      screen: WindowsPhone,
+      options: {
+        title: 'Windows Phone',
+        headerShown: false,
+      },
+    },
+    BrightnessControl: {
+      screen: BrightnessControl,
+      options: {
+        title: 'Brightness Control',
+        headerShown: false,
+      },
+    },
+    BrightnessControl2: {
+      screen: ControlScreen,
+      options: {
+        title: 'Brightness Control 2',
         headerShown: false,
       },
     },
