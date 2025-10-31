@@ -18,6 +18,7 @@ import { Calculator } from './screens/Calculator';
 import { WindowsPhone } from './screens/WindowsPhone';
 import { BrightnessControl } from './screens/BrightnessControl/BrightnessControl';
 import ControlScreen from './screens/BrightnessControl/BrightnessControl2';
+import TikTokProfile from './screens/TikTokProfile/TikTokProfile';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -111,6 +112,13 @@ const RootStack = createNativeStackNavigator({
       screen: ControlScreen,
       options: {
         title: 'Brightness Control 2',
+        headerShown: false,
+      },
+    },
+    TikTokProfile: {
+      screen: TikTokProfile,
+      options: {
+        title: 'TikTok Profile',
         headerShown: false,
       },
     },

@@ -13,6 +13,15 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const { width } = Dimensions.get("window");
 
+// Halloween palette
+const halloweenColors = {
+  accent: "#ffae00", // pumpkin orange
+  accentAlt: "#7A0CFF", // spooky purple
+  surface: "#0b0b0f",
+  border: "#2a1a12",
+  muted: "#aaa",
+};
+
 const icons = {
   bigPlus: require("./instagramIcons/big-plus.png"),
   heart: require("./instagramIcons/heart.png"),
@@ -28,6 +37,27 @@ const icons = {
   down: require("./instagramIcons/down.png"),
   play: require("./instagramIcons/play.png"),
   instagramLogo: require("./instagramIcons/instagram-logo.png"),
+  send2: require("./instagramIcons/share2.png"),
+  instagramLogo2: require("./instagramIcons/hallowenInstagramLogo.png"),
+  witchHat: require("./instagramIcons/witch-hat.png"),
+  happyFace: require("./instagramIcons/happy-face.png"),
+  spider: require("./instagramIcons/spider.png"),
+  zombie: require("./instagramIcons/zombie.png"),
+  ghost: require("./instagramIcons/ghost.png"),
+  h1: require("./instagramIcons/h1.jpg"),
+  h2: require("./instagramIcons/h2.jpg"),
+  h3: require("./instagramIcons/h3.png"),
+  h4: require("./instagramIcons/h4.png"),
+  blodyC: require("./instagramIcons/blodyC.png"),
+  blodyC2: require("./instagramIcons/blodyC2.png"),
+  bats: require("./instagramIcons/bats.png"),
+  cat: require("./instagramIcons/black-evil-cat.png"),
+  heartG: require("./instagramIcons/heartG.png"),
+  save2: require("./instagramIcons/save2.png"),
+  ghost_2: require("./instagramIcons/ghost_2.png"),
+  p2: require("./instagramIcons/p2.png"),
+  p3: require("./instagramIcons/p3.png"),
+  dots_2: require("./instagramIcons/dots_2.png"),
 };
 
 const profileImages = {
@@ -83,8 +113,8 @@ const postsData = [
     id: "1",
     username: "oleg_shkarpeta",
     location: "London, UK",
-    profileImage: profileImages.person6,
-    postImage: "https://picsum.photos/600/900",
+    profileImage: icons.h1,
+    postImage: icons.h3,
     likes: 1092,
     caption: "Living my best life in the city 🌆 Can't believe this view!",
     hashtags: "#london #citylife #vibes",
@@ -93,8 +123,8 @@ const postsData = [
     id: "2",
     username: "emma.wilson",
     location: "Paris, France",
-    profileImage: profileImages.person1,
-    postImage: "https://picsum.photos/600/901",
+    profileImage: icons.h2,
+    postImage: icons.h4,
     likes: 2845,
     caption: "Captured this magical moment at golden hour 🌅✨",
     hashtags: "#travel #sunset #paris",
@@ -117,12 +147,12 @@ export const InstagramScreen = () => {
               : 50,
           paddingBottom: 10,
           borderBottomWidth: 0.5,
-          borderBottomColor: "#333",
+          borderBottomColor: halloweenColors.border,
         }}
       >
         <Image
-          source={icons.instagramLogo}
-          style={{ width: 120, height: 40, tintColor: "#fff" }}
+          source={icons.instagramLogo2}
+          style={{ width: 120, height: 40, tintColor: halloweenColors.accent, objectFit: "cover" }}
           resizeMode="contain"
         />
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -131,8 +161,8 @@ export const InstagramScreen = () => {
             style={{ padding: 5 }}
           >
             <Image
-              source={icons.bigPlus}
-              style={{ width: 24, height: 24, tintColor: "#fff" }}
+              source={icons.cat}
+              style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -140,8 +170,8 @@ export const InstagramScreen = () => {
             style={{ padding: 5, marginLeft: 10 }}
           >
             <Image
-              source={icons.heart}
-              style={{ width: 24, height: 24, tintColor: "#fff" }}
+              source={icons.bats}
+              style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
             />
           </TouchableOpacity>
         </View>
@@ -157,7 +187,11 @@ export const InstagramScreen = () => {
           {storiesData.map((story) => (
             <View key={story.id} style={{ alignItems: "center", width: 80 }}>
               <LinearGradient
-                colors={story.isUserStory ? ["", ""] : ["#ffc700", "#d300c5"]}
+                colors={
+                  story.isUserStory
+                    ? ["#3a3a3a", "#555555"]
+                    : [halloweenColors.accent, halloweenColors.accentAlt]
+                }
                 style={{
                   width: 72,
                   height: 72,
@@ -165,8 +199,7 @@ export const InstagramScreen = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   marginBottom: 4,
-                  position: "relative",
-                  overflow: "visible",
+                  position: "relative"
                 }}
               >
                 <Image
@@ -179,26 +212,42 @@ export const InstagramScreen = () => {
                   accessibilityLabel={`${story.username}'s story`}
                 />
               </LinearGradient>
+              <Image
+                source={icons.witchHat}
+                style={{ width: 40, height: 40, position: "absolute", top: -15, left: 25, zIndex: 1000,transform: [{ rotateZ: "15deg" }] }}
+              />
+                               <Image
+                  source={icons.blodyC2}
+                  style={{
+                    width: 120,
+                    height: 120,
+                    position: "absolute",
+                    top: -20,
+                    borderRadius: 33,
+                    zIndex: 1,
+                  }}
+                />
               {story.isUserStory && (
                 <View
                   style={{
                     position: "absolute",
                     bottom: 10,
                     right: 10,
-                    backgroundColor: "#fff",
+                    backgroundColor: halloweenColors.accent,
                     width: 20,
                     height: 20,
                     borderRadius: 10,
                     borderWidth: 1,
-                    borderColor: "black",
+                    borderColor: halloweenColors.border,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
                   <Image
                     source={icons.smallPlus}
-                    style={{ width: 12, height: 12, tintColor: "black" }}
+                    style={{ width: 12, height: 12, tintColor: "#000" }}
                   />
+ 
                 </View>
               )}
               <Text
@@ -216,7 +265,7 @@ export const InstagramScreen = () => {
           ))}
         </ScrollView>
 
-        <View style={{ height: 0.5, backgroundColor: "#333" }} />
+        <View style={{ height: 0.5, backgroundColor: halloweenColors.border }} />
 
         {postsData.map((post, index) => (
           <View key={post.id}>
@@ -224,7 +273,7 @@ export const InstagramScreen = () => {
               <View
                 style={{
                   height: 0.5,
-                  backgroundColor: "#333",
+                  backgroundColor: halloweenColors.border,
                   marginVertical: 10,
                 }}
               />
@@ -252,6 +301,16 @@ export const InstagramScreen = () => {
                   }}
                   accessibilityLabel={`${post.username} profile picture`}
                 />
+                   <Image
+                  source={icons.blodyC}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    left: -5,
+                    position: "absolute",
+                  }}
+                  accessibilityLabel={`${post.username} profile picture`}
+                />
                 <View>
                   <Text
                     style={{ fontWeight: "bold", fontSize: 14, color: "#fff" }}
@@ -269,7 +328,7 @@ export const InstagramScreen = () => {
               >
                 <Image
                   source={icons.dots}
-                  style={{ width: 20, height: 20, tintColor: "#fff" }}
+                  style={{ width: 20, height: 20, tintColor: halloweenColors.accent }}
                 />
               </TouchableOpacity>
             </View>
@@ -283,11 +342,24 @@ export const InstagramScreen = () => {
               }}
             >
               <Image
-                source={{ uri: post.postImage }}
+                source={post.postImage }
                 style={{ width: "100%", height: "100%" }}
                 accessibilityLabel="Post content"
                 resizeMode="cover"
               />
+              {/** Spooky corner emoji overlay */}
+              <Text
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 12,
+                  fontSize: 28,
+                  textShadowColor: "rgba(0,0,0,0.6)",
+                  textShadowRadius: 6,
+                }}
+              >
+                🎃
+              </Text>
               <View
                 style={{
                   position: "absolute",
@@ -308,8 +380,8 @@ export const InstagramScreen = () => {
                   }}
                 >
                   <Image
-                    source={icons.person}
-                    style={{ width: 12, height: 12, tintColor: "#fff" }}
+                    source={icons.p3}
+                    style={{ width: 12, height: 12, tintColor: halloweenColors.accent }}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -321,8 +393,8 @@ export const InstagramScreen = () => {
                   }}
                 >
                   <Image
-                    source={icons.stopSound}
-                    style={{ width: 12, height: 12, tintColor: "#fff" }}
+                    source={icons.ghost_2}
+                    style={{ width: 12, height: 12, tintColor: halloweenColors.accent }}
                   />
                 </TouchableOpacity>
               </View>
@@ -348,8 +420,8 @@ export const InstagramScreen = () => {
                   style={{ padding: 5 }}
                 >
                   <Image
-                    source={icons.heart}
-                    style={{ width: 24, height: 24, tintColor: "#fff" }}
+                    source={icons.heartG}
+                    style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -358,7 +430,7 @@ export const InstagramScreen = () => {
                 >
                   <Image
                     source={icons.comment}
-                    style={{ width: 24, height: 24, tintColor: "#fff" }}
+                    style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -366,8 +438,8 @@ export const InstagramScreen = () => {
                   style={{ padding: 5 }}
                 >
                   <Image
-                    source={icons.send}
-                    style={{ width: 24, height: 24, tintColor: "#fff" }}
+                    source={icons.send2}
+                    style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
                   />
                 </TouchableOpacity>
               </View>
@@ -376,8 +448,8 @@ export const InstagramScreen = () => {
                 style={{ padding: 5 }}
               >
                 <Image
-                  source={icons.share}
-                  style={{ width: 24, height: 24, tintColor: "#fff" }}
+                  source={icons.save2}
+                  style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
                 />
               </TouchableOpacity>
             </View>
@@ -400,7 +472,7 @@ export const InstagramScreen = () => {
                   {post.username}
                 </Text>{" "}
                 {post.caption}{" "}
-                <Text style={{ color: "#4d9fed" }}>{post.hashtags}</Text>
+                <Text style={{ color: halloweenColors.accent }}>{post.hashtags}</Text>
               </Text>
             </View>
           </View>
@@ -416,7 +488,7 @@ export const InstagramScreen = () => {
           alignItems: "center",
           paddingVertical: 8,
           borderTopWidth: 0.5,
-          borderTopColor: "#333",
+          borderTopColor: halloweenColors.border,
         }}
       >
         <TouchableOpacity
@@ -424,8 +496,8 @@ export const InstagramScreen = () => {
           style={{ padding: 5 }}
         >
           <Image
-            source={icons.home}
-            style={{ width: 24, height: 24, tintColor: "#fff" }}
+            source={icons.happyFace}
+            style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -433,8 +505,8 @@ export const InstagramScreen = () => {
           style={{ padding: 5 }}
         >
           <Image
-            source={icons.search}
-            style={{ width: 24, height: 24, tintColor: "#fff" }}
+            source={icons.zombie}
+            style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -442,8 +514,8 @@ export const InstagramScreen = () => {
           style={{ padding: 5 }}
         >
           <Image
-            source={icons.play}
-            style={{ width: 24, height: 24, tintColor: "#fff" }}
+            source={icons.spider}
+            style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -451,8 +523,8 @@ export const InstagramScreen = () => {
           style={{ padding: 5 }}
         >
           <Image
-            source={icons.send}
-            style={{ width: 24, height: 24, tintColor: "#fff" }}
+            source={icons.ghost}
+            style={{ width: 24, height: 24, tintColor: halloweenColors.accent }}
           />
         </TouchableOpacity>
         <Image
@@ -462,10 +534,27 @@ export const InstagramScreen = () => {
             height: 28,
             borderRadius: 14,
             borderWidth: 2,
-            borderColor: "#fff",
+            borderColor: halloweenColors.accent,
             backgroundColor: "#ddd",
           }}
           accessibilityLabel="Profile"
+        />
+      </View>
+      <View
+        pointerEvents="none"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 9999,
+        }}
+      >
+        <Image
+          source={require("./instagramIcons/textureHallowen.png")}
+          resizeMode="cover"
+          style={{ width: "100%", height: "100%", opacity: 0.35 }}
         />
       </View>
     </View>

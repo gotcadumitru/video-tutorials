@@ -14,6 +14,7 @@ export function Home() {
       <Button screen="WindowsPhone" params={{}}>Go to Windows Phone</Button>
       <Button screen="BrightnessControl" params={{}}>Go to Brightness Control</Button>
       <Button screen="BrightnessControl2">Go to Brightness Control 2</Button>
+      <Button screen="TikTokProfile">Go to TikTok Profile</Button>
     </View>
   );
 }
