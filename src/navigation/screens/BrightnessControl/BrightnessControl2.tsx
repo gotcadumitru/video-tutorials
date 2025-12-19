@@ -83,16 +83,6 @@ const BrightnessControl2 = () => {
   return (
     <GestureHandlerRootView>
       <View style={{ flex: 1 }}>
-      <StatusBar hidden />
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-        {/* Background Image as separate layer */}
-        {/* <ImageBackground style={{brightness: averageBrightness}}>
-
-        </ImageBackground> */}
         <View
           style={{
             position: "absolute",

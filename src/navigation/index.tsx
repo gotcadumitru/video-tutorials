@@ -19,6 +19,17 @@ import { WindowsPhone } from './screens/WindowsPhone';
 import { BrightnessControl } from './screens/BrightnessControl/BrightnessControl';
 import ControlScreen from './screens/BrightnessControl/BrightnessControl2';
 import TikTokProfile from './screens/TikTokProfile/TikTokProfile';
+import { Dashboard } from './screens/Dashboard';
+import { Dashboard2 } from './screens/Dashboard2';
+import { CryptoDashboard } from './screens/CryptoDashboard';
+import { StocksDashboard } from './screens/StocksDashboard';
+import { Booking } from './screens/Booking';
+import { SocialMedia } from './screens/SocialMedia';
+import { Coffey } from './screens/Coffey';
+import { Barber } from './screens/Barber';
+import { MoviesCinema } from './screens/MoviesCinema';
+import { CarEvents } from './screens/CarEvents';
+import { SpotifySignup } from './screens/SpotifySignup/SpotifySignup';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -119,6 +130,83 @@ const RootStack = createNativeStackNavigator({
       screen: TikTokProfile,
       options: {
         title: 'TikTok Profile',
+        headerShown: false,
+      },
+    },
+    Dashboard: {
+      screen: Dashboard,
+      options: {
+        title: 'Dashboard',
+        headerShown: false,
+      },
+    },
+    Dashboard2: {
+      screen: Dashboard2,
+      options: {
+        title: 'Modern Dashboard',
+        headerShown: false,
+      },
+    },
+    CryptoDashboard: {
+      screen: CryptoDashboard,
+      options: {
+        title: 'Crypto Dashboard',
+        headerShown: false,
+      },
+    },
+    StocksDashboard: {
+      screen: StocksDashboard,
+      options: {
+        title: 'Stocks Dashboard',
+        headerShown: false,
+      },
+    },
+    Booking: {
+      screen: Booking,
+      options: {
+        title: 'Booking',
+        headerShown: false,
+      },
+    },
+    SocialMedia: {
+      screen: SocialMedia,
+      options: {
+        title: 'Social Media',
+        headerShown: false,
+      },
+    },
+    Coffey: {
+      screen: Coffey,
+      options: {
+        title: 'Coffey',
+        headerShown: false,
+      },
+    },
+    Barber: {
+      screen: Barber,
+      options: {
+        title: 'Barber',
+        headerShown: false,
+      },
+    },
+    MoviesCinema: {
+      screen: MoviesCinema,
+      options: {
+        title: 'Aurora Cinemas',
+        headerShown: false,
+      },
+    },
+    EmptyShowcase: {
+      screen: CarEvents,
+      options: {
+        title: 'Car events 1',
+        headerShown: false,
+      },
+    },
+    SpotifySignup: {
+      screen: SpotifySignup,
+      options: {
+        title: 'Spotify Signup',
         headerShown: false,
       },
     },

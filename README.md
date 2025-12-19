@@ -1,6 +1,18 @@
 eas build --platform ios --profile development --local
 then open in finder, unzip and drag and drop on the iphone simulator
 
+
+To remove the Refreshing... ui from the top open the 
+node_modules/react-native/Libraries/Utilities/HMRClient.js
+file and remove 
+  // if (client.isEnabled() && !isInitialUpdate) {
+      //   DevLoadingView.showMessage('Refreshing...', 'refresh');
+      // }
+
+      // if (client.isEnabled() && !isInitialUpdate) {
+      //   DevLoadingView.showMessage('Refreshing...', 'refresh');
+      // }
+ Then start the app again with npx expo start --clear to use the new js
 # Starter Template with React Navigation
 
 This is a minimal starter template for React Native apps using Expo and React Navigation.

@@ -44,6 +44,8 @@ export function Register() {
     console.log("Login pressed");
   };
 
+ 
+
   return (
     <View style={styles.container}>
       <StatusBar
