@@ -1,0 +1,2 @@
+export { SocialMedia } from './SocialMediaScreen';
+

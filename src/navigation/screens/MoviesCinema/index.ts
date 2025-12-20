@@ -1,0 +1,2 @@
+export { MoviesCinema } from './MoviesCinemaScreen';
+

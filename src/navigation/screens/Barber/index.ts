@@ -1,0 +1,2 @@
+export { Barber } from './BarberScreen';
+

@@ -1,0 +1,2 @@
+export { FlappyBird } from './FlappyBirdScreen';
+

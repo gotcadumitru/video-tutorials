@@ -1,0 +1,2 @@
+export { WindowsPhone } from './WindowsPhoneScreen';
+

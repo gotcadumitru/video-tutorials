@@ -12,13 +12,11 @@ import { Home } from './screens/Home';
 import { Profile } from './screens/Profile';
 import { Settings } from './screens/Settings';
 import { NotFound } from './screens/NotFound';
-import { Register } from './screens/CarRegister/Register';
-import { InstagramScreen } from './screens/Instagram/InstagramScreen';
+import { InstagramScreen } from './screens/Instagram';
 import { Calculator } from './screens/Calculator';
 import { WindowsPhone } from './screens/WindowsPhone';
-import { BrightnessControl } from './screens/BrightnessControl/BrightnessControl';
-import ControlScreen from './screens/BrightnessControl/BrightnessControl2';
-import TikTokProfile from './screens/TikTokProfile/TikTokProfile';
+import { BrightnessControl, BrightnessControl2 as ControlScreen } from './screens/BrightnessControl';
+import { TikTokProfile } from './screens/TikTokProfile';
 import { Dashboard } from './screens/Dashboard';
 import { Dashboard2 } from './screens/Dashboard2';
 import { CryptoDashboard } from './screens/CryptoDashboard';
@@ -29,7 +27,9 @@ import { Coffey } from './screens/Coffey';
 import { Barber } from './screens/Barber';
 import { MoviesCinema } from './screens/MoviesCinema';
 import { CarEvents } from './screens/CarEvents';
-import { SpotifySignup } from './screens/SpotifySignup/SpotifySignup';
+import { SpotifySignup } from './screens/SpotifySignup';
+import { FlappyBird } from './screens/FlappyBird';
+import { Register } from './screens/CarRegister';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -83,13 +83,6 @@ const RootStack = createNativeStackNavigator({
           </HeaderButton>
         ),
       }),
-    },
-    Register: {
-      screen: Register,
-      options: {
-        title: 'Register',
-        headerShown: false,
-      },
     },
     Instagram: {
       screen: InstagramScreen,
@@ -207,6 +200,13 @@ const RootStack = createNativeStackNavigator({
       screen: SpotifySignup,
       options: {
         title: 'Spotify Signup',
+        headerShown: false,
+      },
+    },
+    FlappyBird: {
+      screen: FlappyBird,
+      options: {
+        title: 'Flappy Bird',
         headerShown: false,
       },
     },
