@@ -29,7 +29,13 @@ import { MoviesCinema } from './screens/MoviesCinema';
 import { CarEvents } from './screens/CarEvents';
 import { SpotifySignup } from './screens/SpotifySignup';
 import { FlappyBird } from './screens/FlappyBird';
+import { MidnightRegistration } from './screens/RegistrationMidnight';
 import { Register } from './screens/CarRegister';
+import { LoginScreen } from './screens/Login_1';
+import { RegistrationScreen } from './screens/Registration';
+import { FinanceRegisterScreen } from './screens/RegistrationFinance';
+import RaceRegistrationScreen from './screens/RegistrationCarRace/RegistrationCarRace';
+import RegistrationCarRaceing from './screens/RegistrationCarRaceing/RegistrationCarRaceing';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -61,6 +67,7 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     },
+    
     Profile: {
       screen: Profile,
       linking: {
@@ -83,6 +90,27 @@ const RootStack = createNativeStackNavigator({
           </HeaderButton>
         ),
       }),
+    },
+    LoginScreen: {
+      screen: LoginScreen,
+      options: {
+        title: 'LoginScreen',
+        headerShown: false,
+      },
+    },
+    RegistrationScreen: {
+      screen: RegistrationScreen,
+      options: {
+        title: 'Registration',
+        headerShown: false,
+      },
+    },
+    RegistrationCarRaceing: {
+      screen: RegistrationCarRaceing,
+      options: {
+        title: 'RegistrationCarRaceing',
+        headerShown: false,
+      },
     },
     Instagram: {
       screen: InstagramScreen,
@@ -123,6 +151,20 @@ const RootStack = createNativeStackNavigator({
       screen: TikTokProfile,
       options: {
         title: 'TikTok Profile',
+        headerShown: false,
+      },
+    },
+    FinanceRegisterScreen: {
+      screen: FinanceRegisterScreen,
+      options: {
+        title: 'Finance Register',
+        headerShown: false,
+      },
+    },
+    RaceRegistrationScreen: {
+      screen: RaceRegistrationScreen,
+      options: {
+        title: 'RaceRegistrationScreen',
         headerShown: false,
       },
     },
@@ -200,6 +242,13 @@ const RootStack = createNativeStackNavigator({
       screen: SpotifySignup,
       options: {
         title: 'Spotify Signup',
+        headerShown: false,
+      },
+    },
+    MidnightRegistration: {
+      screen: MidnightRegistration,
+      options: {
+        title: 'Midnight Registration',
         headerShown: false,
       },
     },

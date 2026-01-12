@@ -1,0 +1,2 @@
+export { RegistrationScreen } from './Registration';
+

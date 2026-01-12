@@ -9,10 +9,15 @@ export function Home() {
         contentContainerStyle={styles.buttonList}
         showsVerticalScrollIndicator={false}
       >
+        <Button screen="RegistrationCarRaceing">Go to RegistrationCarRaceing</Button>
+        <Button screen="RaceRegistrationScreen">Go to RaceRegistrationScreen</Button>
+        <Button screen="FinanceRegisterScreen">Go to Finance Register</Button>
         <Button screen="Profile" params={{ user: 'jane' }}>
           Go to Profile
         </Button>
         <Button screen="Settings">Go to Settings</Button>
+        <Button screen="LoginScreen">Go to LoginScreen</Button>
+        <Button screen="RegistrationScreen">Go to Registration</Button>
         <Button screen="Instagram">Go to Instagram</Button>
         <Button screen="Calculator" params={{}}>Go to Calculator</Button>
         <Button screen="WindowsPhone" params={{}}>Go to Windows Phone</Button>
@@ -29,6 +34,7 @@ export function Home() {
         <Button screen="Barber">Go to Barber Shop</Button>
         <Button screen="MoviesCinema">Go to Aurora Cinemas</Button>
         <Button screen="SpotifySignup">Go to Spotify Signup</Button>
+        <Button screen="MidnightRegistration">Go to Midnight Registration</Button>
         <Button screen="FlappyBird">Go to Flappy Bird</Button>
         <Button screen="EmptyShowcase">Go to Car Events</Button>
       </ScrollView>

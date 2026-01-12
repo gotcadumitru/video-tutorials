@@ -1,0 +1,2 @@
+export { MidnightRegistration } from './MidnightRegistration';
+
