@@ -2,6 +2,7 @@ import { Button } from '@react-navigation/elements';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 export function Home() {
+  // screen not used. check index.ts
   return (
     <View style={styles.container}>
       <ScrollView
@@ -10,6 +11,7 @@ export function Home() {
         showsVerticalScrollIndicator={false}
       >
         <Button screen="RegistrationCarRaceing">Go to RegistrationCarRaceing</Button>
+        <Button screen="MotoRent">Go to MotoRent</Button>
         <Button screen="RaceRegistrationScreen">Go to RaceRegistrationScreen</Button>
         <Button screen="FinanceRegisterScreen">Go to Finance Register</Button>
         <Button screen="Profile" params={{ user: 'jane' }}>
