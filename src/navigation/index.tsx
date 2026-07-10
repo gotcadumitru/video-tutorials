@@ -53,6 +53,32 @@ import AiChatbotLogin from "./screens/AiChatbotLogin/AiChatbotLogin";
 import CarRacingLogin from "./screens/CarRacingLogin/CarRacingLogin";
 import FacebookLogin from "./screens/FacebookLogin/FacebookLogin";
 import SpotifyLogin from "./screens/SpotifyLogin/SpotifyLogin";
+import Netflix from "./screens/Netflix/Netflix";
+import Discord from "./screens/Discord/Discord";
+import YouTube from "./screens/YouTube/YouTube";
+import SpotifyPlayer from "./screens/SpotifyPlayer/SpotifyPlayer";
+import Reddit from "./screens/Reddit/Reddit";
+import WhatsApp from "./screens/WhatsApp/WhatsApp";
+import X from "./screens/X/X";
+import ChatGPT from "./screens/ChatGPT/ChatGPT";
+import Uber from "./screens/Uber/Uber";
+import Tinder from "./screens/Tinder/Tinder";
+import Tetris from "./screens/Tetris/Tetris";
+import Game2048 from "./screens/Game2048/Game2048";
+import Wordle from "./screens/Wordle/Wordle";
+import DinoRun from "./screens/DinoRun/DinoRun";
+import Minesweeper from "./screens/Minesweeper/Minesweeper";
+import PaywallCalculator from "./screens/PaywallCalculator/PaywallCalculator";
+import TipJar from "./screens/TipJar/TipJar";
+import CoinFlip from "./screens/CoinFlip/CoinFlip";
+import Magic8Ball from "./screens/Magic8Ball/Magic8Ball";
+import QRGenerator from "./screens/QRGenerator/QRGenerator";
+import AICalculator from "./screens/AICalculator/AICalculator";
+import AIRandom from "./screens/AIRandom/AIRandom";
+import AIRockPaperScissors from "./screens/AIRockPaperScissors/AIRockPaperScissors";
+import AIYesNo from "./screens/AIYesNo/AIYesNo";
+import AIPassword from "./screens/AIPassword/AIPassword";
+import Flashlight from "./screens/Flashlight/Flashlight";
 const HomeTabs = createBottomTabNavigator({
   screens: {
     Home: {
@@ -63,6 +89,32 @@ const HomeTabs = createBottomTabNavigator({
             contentContainerStyle={styles.buttonList}
             showsVerticalScrollIndicator={false}
           >
+            <Button screen="AICalculator">AI Calculator</Button>
+            <Button screen="AIRandom">AI Random Number</Button>
+            <Button screen="AIRockPaperScissors">AI Rock Paper Scissors</Button>
+            <Button screen="AIYesNo">AI Yes/No Decider</Button>
+            <Button screen="AIPassword">AI Password Generator</Button>
+            <Button screen="PaywallCalculator">Calculator (Paywall)</Button>
+            <Button screen="TipJar">TipJar (Paywall)</Button>
+            <Button screen="CoinFlip">Coin Flip (Paywall)</Button>
+            <Button screen="Magic8Ball">Magic 8 Ball (Paywall)</Button>
+            <Button screen="QRGenerator">QR Generator (Paywall)</Button>
+            <Button screen="Flashlight">Flashlight (Paywall)</Button>
+            <Button screen="Tetris">Play Tetris</Button>
+            <Button screen="Game2048">Play 2048</Button>
+            <Button screen="Wordle">Play Wordle</Button>
+            <Button screen="DinoRun">Play Dino Run</Button>
+            <Button screen="Minesweeper">Play Minesweeper</Button>
+            <Button screen="WhatsApp">Go to WhatsApp</Button>
+            <Button screen="X">Go to X</Button>
+            <Button screen="ChatGPT">Go to ChatGPT</Button>
+            <Button screen="Uber">Go to Uber</Button>
+            <Button screen="Tinder">Go to Tinder</Button>
+            <Button screen="Netflix">Go to Netflix</Button>
+            <Button screen="Discord">Go to Discord</Button>
+            <Button screen="YouTube">Go to YouTube</Button>
+            <Button screen="SpotifyPlayer">Go to Spotify Player</Button>
+            <Button screen="Reddit">Go to Reddit</Button>
             <Button screen="FacebookLogin">Go to Facebook Login</Button>
             <Button screen="SpotifyLogin">Go to Spotify Login</Button>
             <Button screen="CarRacingLogin">Go to Car Racing Login</Button>
@@ -433,6 +485,188 @@ const RootStack = createNativeStackNavigator({
       screen: WeatherApp,
       options: {
         title: "Weather App",
+        headerShown: false,
+      },
+    },
+    Netflix: {
+      screen: Netflix,
+      options: {
+        title: "Netflix",
+        headerShown: false,
+      },
+    },
+    Discord: {
+      screen: Discord,
+      options: {
+        title: "Discord",
+        headerShown: false,
+      },
+    },
+    YouTube: {
+      screen: YouTube,
+      options: {
+        title: "YouTube",
+        headerShown: false,
+      },
+    },
+    SpotifyPlayer: {
+      screen: SpotifyPlayer,
+      options: {
+        title: "Spotify Player",
+        headerShown: false,
+      },
+    },
+    Reddit: {
+      screen: Reddit,
+      options: {
+        title: "Reddit",
+        headerShown: false,
+      },
+    },
+    WhatsApp: {
+      screen: WhatsApp,
+      options: {
+        title: "WhatsApp",
+        headerShown: false,
+      },
+    },
+    X: {
+      screen: X,
+      options: {
+        title: "X",
+        headerShown: false,
+      },
+    },
+    ChatGPT: {
+      screen: ChatGPT,
+      options: {
+        title: "ChatGPT",
+        headerShown: false,
+      },
+    },
+    Uber: {
+      screen: Uber,
+      options: {
+        title: "Uber",
+        headerShown: false,
+      },
+    },
+    Tinder: {
+      screen: Tinder,
+      options: {
+        title: "Tinder",
+        headerShown: false,
+      },
+    },
+    Tetris: {
+      screen: Tetris,
+      options: {
+        title: "Tetris",
+        headerShown: false,
+      },
+    },
+    Game2048: {
+      screen: Game2048,
+      options: {
+        title: "2048",
+        headerShown: false,
+      },
+    },
+    Wordle: {
+      screen: Wordle,
+      options: {
+        title: "Wordle",
+        headerShown: false,
+      },
+    },
+    DinoRun: {
+      screen: DinoRun,
+      options: {
+        title: "Dino Run",
+        headerShown: false,
+      },
+    },
+    Minesweeper: {
+      screen: Minesweeper,
+      options: {
+        title: "Minesweeper",
+        headerShown: false,
+      },
+    },
+    PaywallCalculator: {
+      screen: PaywallCalculator,
+      options: {
+        title: "Calc",
+        headerShown: false,
+      },
+    },
+    TipJar: {
+      screen: TipJar,
+      options: {
+        title: "TipJar",
+        headerShown: false,
+      },
+    },
+    CoinFlip: {
+      screen: CoinFlip,
+      options: {
+        title: "FlipCoin",
+        headerShown: false,
+      },
+    },
+    Magic8Ball: {
+      screen: Magic8Ball,
+      options: {
+        title: "Oracle 8",
+        headerShown: false,
+      },
+    },
+    QRGenerator: {
+      screen: QRGenerator,
+      options: {
+        title: "QRify",
+        headerShown: false,
+      },
+    },
+    AICalculator: {
+      screen: AICalculator,
+      options: {
+        title: "MathGPT",
+        headerShown: false,
+      },
+    },
+    AIRandom: {
+      screen: AIRandom,
+      options: {
+        title: "RandomAI",
+        headerShown: false,
+      },
+    },
+    AIRockPaperScissors: {
+      screen: AIRockPaperScissors,
+      options: {
+        title: "RPS-GPT",
+        headerShown: false,
+      },
+    },
+    AIYesNo: {
+      screen: AIYesNo,
+      options: {
+        title: "Decide.ai",
+        headerShown: false,
+      },
+    },
+    AIPassword: {
+      screen: AIPassword,
+      options: {
+        title: "PassGPT",
+        headerShown: false,
+      },
+    },
+    Flashlight: {
+      screen: Flashlight,
+      options: {
+        title: "Lumen",
         headerShown: false,
       },
     },
