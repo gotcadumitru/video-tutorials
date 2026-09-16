@@ -1,0 +1,12 @@
+{
+  "workbench.colorCustomizations": {
+    "editor.selectionBackground": "#00000000",
+    "editor.inactiveSelectionBackground": "#00000000",
+    "editor.selectionHighlightBackground": "#00000000",
+    "editor.wordHighlightBackground": "#00000000",
+    "editor.wordHighlightStrongBackground": "#00000000",
+    "editor.wordHighlightTextBackground": "#00000000"
+  },
+  "editor.selectionHighlight": false,
+  "editor.occurrencesHighlight": "off"
+}

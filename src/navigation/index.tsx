@@ -79,6 +79,31 @@ import AIRockPaperScissors from "./screens/AIRockPaperScissors/AIRockPaperScisso
 import AIYesNo from "./screens/AIYesNo/AIYesNo";
 import AIPassword from "./screens/AIPassword/AIPassword";
 import Flashlight from "./screens/Flashlight/Flashlight";
+import TikTok from "./screens/TikTok/TikTok";
+import Airbnb from "./screens/Airbnb/Airbnb";
+import GoogleMaps from "./screens/GoogleMaps/GoogleMaps";
+import AIVoice from "./screens/AIVoice/AIVoice";
+import TicketDrop from "./screens/TicketDrop/TicketDrop";
+import Duolingo from "./screens/Duolingo/Duolingo";
+import SpotifyWrapped from "./screens/SpotifyWrapped/SpotifyWrapped";
+import Shazam from "./screens/Shazam/Shazam";
+import Tesla from "./screens/Tesla/Tesla";
+import Nike from "./screens/Nike/Nike";
+import LockScreen from "./screens/LockScreen/LockScreen";
+import IncomingCall from "./screens/IncomingCall/IncomingCall";
+import Pinterest from "./screens/Pinterest/Pinterest";
+import Snapchat from "./screens/Snapchat/Snapchat";
+import AIArt from "./screens/AIArt/AIArt";
+import AppleWallet from "./screens/AppleWallet/AppleWallet";
+import IMessage from "./screens/IMessage/IMessage";
+import AppleFitness from "./screens/AppleFitness/AppleFitness";
+import Twitch from "./screens/Twitch/Twitch";
+import CashApp from "./screens/CashApp/CashApp";
+import Starbucks from "./screens/Starbucks/Starbucks";
+import DoorDash from "./screens/DoorDash/DoorDash";
+import BoardingPass from "./screens/BoardingPass/BoardingPass";
+import Habits from "./screens/Habits/Habits";
+import Sleep from "./screens/Sleep/Sleep";
 const HomeTabs = createBottomTabNavigator({
   screens: {
     Home: {
@@ -89,6 +114,31 @@ const HomeTabs = createBottomTabNavigator({
             contentContainerStyle={styles.buttonList}
             showsVerticalScrollIndicator={false}
           >
+            <Button screen="AppleWallet">Go to Apple Wallet</Button>
+            <Button screen="IMessage">Go to iMessage</Button>
+            <Button screen="AppleFitness">Go to Apple Fitness</Button>
+            <Button screen="Twitch">Go to Twitch</Button>
+            <Button screen="CashApp">Go to Cash App</Button>
+            <Button screen="Starbucks">Go to Starbucks</Button>
+            <Button screen="DoorDash">Go to DoorDash</Button>
+            <Button screen="BoardingPass">Go to Boarding Pass</Button>
+            <Button screen="Habits">Go to Habits</Button>
+            <Button screen="Sleep">Go to Sleep Sounds</Button>
+            <Button screen="Duolingo">Go to Duolingo</Button>
+            <Button screen="SpotifyWrapped">Go to Spotify Wrapped</Button>
+            <Button screen="Shazam">Go to Shazam</Button>
+            <Button screen="Tesla">Go to Tesla</Button>
+            <Button screen="Nike">Go to Nike SNKRS</Button>
+            <Button screen="LockScreen">Go to Lock Screen</Button>
+            <Button screen="IncomingCall">Go to Incoming Call</Button>
+            <Button screen="Pinterest">Go to Pinterest</Button>
+            <Button screen="Snapchat">Go to Snapchat</Button>
+            <Button screen="AIArt">Go to AI Art</Button>
+            <Button screen="TikTok">Go to TikTok</Button>
+            <Button screen="Airbnb">Go to Airbnb</Button>
+            <Button screen="GoogleMaps">Go to Google Maps</Button>
+            <Button screen="AIVoice">Go to AI Voice</Button>
+            <Button screen="TicketDrop">Go to Ticket Drop</Button>
             <Button screen="AICalculator">AI Calculator</Button>
             <Button screen="AIRandom">AI Random Number</Button>
             <Button screen="AIRockPaperScissors">AI Rock Paper Scissors</Button>
@@ -667,6 +717,181 @@ const RootStack = createNativeStackNavigator({
       screen: Flashlight,
       options: {
         title: "Lumen",
+        headerShown: false,
+      },
+    },
+    TikTok: {
+      screen: TikTok,
+      options: {
+        title: "TikTok",
+        headerShown: false,
+      },
+    },
+    Airbnb: {
+      screen: Airbnb,
+      options: {
+        title: "Airbnb",
+        headerShown: false,
+      },
+    },
+    GoogleMaps: {
+      screen: GoogleMaps,
+      options: {
+        title: "Google Maps",
+        headerShown: false,
+      },
+    },
+    AIVoice: {
+      screen: AIVoice,
+      options: {
+        title: "Nova AI",
+        headerShown: false,
+      },
+    },
+    TicketDrop: {
+      screen: TicketDrop,
+      options: {
+        title: "Ticket Drop",
+        headerShown: false,
+      },
+    },
+    Duolingo: {
+      screen: Duolingo,
+      options: {
+        title: "Duolingo",
+        headerShown: false,
+      },
+    },
+    SpotifyWrapped: {
+      screen: SpotifyWrapped,
+      options: {
+        title: "Spotify Wrapped",
+        headerShown: false,
+      },
+    },
+    Shazam: {
+      screen: Shazam,
+      options: {
+        title: "Shazam",
+        headerShown: false,
+      },
+    },
+    Tesla: {
+      screen: Tesla,
+      options: {
+        title: "Tesla",
+        headerShown: false,
+      },
+    },
+    Nike: {
+      screen: Nike,
+      options: {
+        title: "SNKRS",
+        headerShown: false,
+      },
+    },
+    LockScreen: {
+      screen: LockScreen,
+      options: {
+        title: "Lock Screen",
+        headerShown: false,
+      },
+    },
+    IncomingCall: {
+      screen: IncomingCall,
+      options: {
+        title: "Incoming Call",
+        headerShown: false,
+      },
+    },
+    Pinterest: {
+      screen: Pinterest,
+      options: {
+        title: "Pinterest",
+        headerShown: false,
+      },
+    },
+    Snapchat: {
+      screen: Snapchat,
+      options: {
+        title: "Snapchat",
+        headerShown: false,
+      },
+    },
+    AIArt: {
+      screen: AIArt,
+      options: {
+        title: "Dreamer",
+        headerShown: false,
+      },
+    },
+    AppleWallet: {
+      screen: AppleWallet,
+      options: {
+        title: "Wallet",
+        headerShown: false,
+      },
+    },
+    IMessage: {
+      screen: IMessage,
+      options: {
+        title: "Messages",
+        headerShown: false,
+      },
+    },
+    AppleFitness: {
+      screen: AppleFitness,
+      options: {
+        title: "Fitness",
+        headerShown: false,
+      },
+    },
+    Twitch: {
+      screen: Twitch,
+      options: {
+        title: "Twitch",
+        headerShown: false,
+      },
+    },
+    CashApp: {
+      screen: CashApp,
+      options: {
+        title: "Cash App",
+        headerShown: false,
+      },
+    },
+    Starbucks: {
+      screen: Starbucks,
+      options: {
+        title: "Starbucks",
+        headerShown: false,
+      },
+    },
+    DoorDash: {
+      screen: DoorDash,
+      options: {
+        title: "DoorDash",
+        headerShown: false,
+      },
+    },
+    BoardingPass: {
+      screen: BoardingPass,
+      options: {
+        title: "Boarding Pass",
+        headerShown: false,
+      },
+    },
+    Habits: {
+      screen: Habits,
+      options: {
+        title: "Habits",
+        headerShown: false,
+      },
+    },
+    Sleep: {
+      screen: Sleep,
+      options: {
+        title: "Sleep",
         headerShown: false,
       },
     },
