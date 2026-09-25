@@ -104,6 +104,7 @@ import DoorDash from "./screens/DoorDash/DoorDash";
 import BoardingPass from "./screens/BoardingPass/BoardingPass";
 import Habits from "./screens/Habits/Habits";
 import Sleep from "./screens/Sleep/Sleep";
+import HingeProtractor from "./screens/HingeProtractor/HingeProtractor";
 const HomeTabs = createBottomTabNavigator({
   screens: {
     Home: {
@@ -114,6 +115,7 @@ const HomeTabs = createBottomTabNavigator({
             contentContainerStyle={styles.buttonList}
             showsVerticalScrollIndicator={false}
           >
+            <Button screen="HingeProtractor">Hinge Protractor (Duo)</Button>
             <Button screen="AppleWallet">Go to Apple Wallet</Button>
             <Button screen="IMessage">Go to iMessage</Button>
             <Button screen="AppleFitness">Go to Apple Fitness</Button>
@@ -892,6 +894,13 @@ const RootStack = createNativeStackNavigator({
       screen: Sleep,
       options: {
         title: "Sleep",
+        headerShown: false,
+      },
+    },
+    HingeProtractor: {
+      screen: HingeProtractor,
+      options: {
+        title: "Hinge",
         headerShown: false,
       },
     },
