@@ -1,15 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import {
-  Dimensions,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from 'react-native';
-
-const { width } = Dimensions.get('window');
 
 const roomTypes = [
   {
@@ -46,6 +44,8 @@ const durations = ['Weekend', '3 Nights', '5 Nights'];
 
 export function Booking() {
   const [selectedDuration, setSelectedDuration] = useState(durations[0]);
+  const { width } = useWindowDimensions();
+  const CARD_WIDTH = width - 36;
 
   const headline = useMemo(
     () =>
@@ -59,7 +59,7 @@ export function Booking() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      <StatusBar barStyle="dark-content" />
       <ScrollView
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
@@ -98,7 +98,7 @@ export function Booking() {
 
         <View style={styles.cardStack}>
           {roomTypes.map((room) => (
-            <TouchableOpacity key={room.id} activeOpacity={0.85} style={styles.roomCard}>
+            <TouchableOpacity key={room.id} activeOpacity={0.85} style={[styles.roomCard, { width: CARD_WIDTH }]}>
               <View style={[styles.roomAccent, { backgroundColor: room.accent }]} />
               <View style={styles.roomContent}>
                 <Text style={styles.roomTitle}>{room.title}</Text>
@@ -116,8 +116,6 @@ export function Booking() {
     </View>
   );
 }
-
-const CARD_WIDTH = width - 36;
 
 const styles = StyleSheet.create({
   container: {
@@ -208,7 +206,6 @@ const styles = StyleSheet.create({
     gap: 18,
   },
   roomCard: {
-    width: CARD_WIDTH,
     borderRadius: 26,
     borderWidth: 1,
     borderColor: '#E5E7EB',
@@ -260,7 +257,6 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   amenityCard: {
-    width: (CARD_WIDTH - 14) / 2,
     backgroundColor: '#F3F4F6',
     borderRadius: 20,
     padding: 18,

@@ -1,9 +1,5 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
-const { width, height } = Dimensions.get("window");
-const LANE_COUNT = 3;
-const LANE_WIDTH = width * 0.8 / LANE_COUNT;
-const GAME_HEIGHT = height * 0.6;
 export 
 const styles = StyleSheet.create({
   container: {

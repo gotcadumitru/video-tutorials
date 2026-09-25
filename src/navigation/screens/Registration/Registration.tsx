@@ -9,12 +9,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Dimensions,
   Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const { width } = Dimensions.get('window');
 const carImage = require('../CarRegister/assets/car.png');
 
 export function RegistrationScreen() {
@@ -33,7 +31,7 @@ export function RegistrationScreen() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="light-content" />
       
       <LinearGradient
         colors={['#0a0e1a', '#1a1f2e', '#0f1419']}

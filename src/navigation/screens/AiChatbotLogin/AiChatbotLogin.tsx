@@ -5,17 +5,15 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
   StatusBar,
   ImageBackground,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const { width, height } = Dimensions.get("window");
 
 const BotIcon = ({ size = 28, color = "#fff" }: { size?: number; color?: string }) => (
   <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
@@ -168,29 +166,32 @@ const NodeLine = ({
   );
 };
 
-const CircuitPattern = () => (
-  <View style={StyleSheet.absoluteFill} pointerEvents="none">
-    <NodeDot x={width * 0.1} y={height * 0.08} size={6} opacity={0.25} />
-    <NodeDot x={width * 0.85} y={height * 0.12} size={5} opacity={0.2} />
-    <NodeDot x={width * 0.3} y={height * 0.05} size={4} opacity={0.15} />
-    <NodeDot x={width * 0.65} y={height * 0.03} size={3} opacity={0.2} />
-    <NodeDot x={width * 0.92} y={height * 0.25} size={5} opacity={0.15} />
-    <NodeDot x={width * 0.05} y={height * 0.3} size={4} opacity={0.2} />
-    <NodeDot x={width * 0.75} y={height * 0.88} size={5} opacity={0.15} />
-    <NodeDot x={width * 0.15} y={height * 0.92} size={4} opacity={0.2} />
-    <NodeDot x={width * 0.5} y={height * 0.95} size={6} opacity={0.12} />
+const CircuitPattern = () => {
+  const { width, height } = useWindowDimensions();
+  return (
+    <View style={StyleSheet.absoluteFill} pointerEvents="none">
+      <NodeDot x={width * 0.1} y={height * 0.08} size={6} opacity={0.25} />
+      <NodeDot x={width * 0.85} y={height * 0.12} size={5} opacity={0.2} />
+      <NodeDot x={width * 0.3} y={height * 0.05} size={4} opacity={0.15} />
+      <NodeDot x={width * 0.65} y={height * 0.03} size={3} opacity={0.2} />
+      <NodeDot x={width * 0.92} y={height * 0.25} size={5} opacity={0.15} />
+      <NodeDot x={width * 0.05} y={height * 0.3} size={4} opacity={0.2} />
+      <NodeDot x={width * 0.75} y={height * 0.88} size={5} opacity={0.15} />
+      <NodeDot x={width * 0.15} y={height * 0.92} size={4} opacity={0.2} />
+      <NodeDot x={width * 0.5} y={height * 0.95} size={6} opacity={0.12} />
 
-    <NodeLine x1={width * 0.1} y1={height * 0.08} x2={width * 0.3} y2={height * 0.05} opacity={0.06} />
-    <NodeLine x1={width * 0.3} y1={height * 0.05} x2={width * 0.65} y2={height * 0.03} opacity={0.05} />
-    <NodeLine x1={width * 0.65} y1={height * 0.03} x2={width * 0.85} y2={height * 0.12} opacity={0.06} />
-    <NodeLine x1={width * 0.85} y1={height * 0.12} x2={width * 0.92} y2={height * 0.25} opacity={0.05} />
-    <NodeLine x1={width * 0.05} y1={height * 0.3} x2={width * 0.1} y2={height * 0.08} opacity={0.04} />
+      <NodeLine x1={width * 0.1} y1={height * 0.08} x2={width * 0.3} y2={height * 0.05} opacity={0.06} />
+      <NodeLine x1={width * 0.3} y1={height * 0.05} x2={width * 0.65} y2={height * 0.03} opacity={0.05} />
+      <NodeLine x1={width * 0.65} y1={height * 0.03} x2={width * 0.85} y2={height * 0.12} opacity={0.06} />
+      <NodeLine x1={width * 0.85} y1={height * 0.12} x2={width * 0.92} y2={height * 0.25} opacity={0.05} />
+      <NodeLine x1={width * 0.05} y1={height * 0.3} x2={width * 0.1} y2={height * 0.08} opacity={0.04} />
 
-    <ChatBubble style={{ position: "absolute", right: 20, top: height * 0.06 }} small />
-    <ChatBubble style={{ position: "absolute", left: 15, top: height * 0.14 }} />
-    <ChatBubble style={{ position: "absolute", right: 30, bottom: height * 0.08 }} small />
-  </View>
-);
+      <ChatBubble style={{ position: "absolute", right: 20, top: height * 0.06 }} small />
+      <ChatBubble style={{ position: "absolute", left: 15, top: height * 0.14 }} />
+      <ChatBubble style={{ position: "absolute", right: 30, bottom: height * 0.08 }} small />
+    </View>
+  );
+};
 
 const GlowOrb = ({
   x,
@@ -277,6 +278,7 @@ const EyeIcon = () => (
 
 export default function AiChatbotLogin() {
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
   const [consent, setConsent] = useState(false);
 
   return (

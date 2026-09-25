@@ -18,7 +18,7 @@ const appleIcon = require('./apple.png');
 export function SpotifySignup() {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" hidden backgroundColor="#000000" />
+      <StatusBar barStyle="light-content" hidden />
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}

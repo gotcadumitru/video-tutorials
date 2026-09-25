@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, ScrollView, StyleSheet, Animated } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Animated, type ScrollViewInstance } from "react-native";
 
 export type AIStep = {
   text: string;
@@ -30,7 +30,7 @@ export function AIThinking({
   const [stepIdx, setStepIdx] = useState(0);
   const [done, setDone] = useState(false);
   const pulse = useRef(new Animated.Value(0.3)).current;
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const onDoneRef = useRef(onDone);
   onDoneRef.current = onDone;
 

@@ -5,15 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
   Animated,
   ImageBackground,
   StatusBar,
   ScrollView,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
-const { width, height } = Dimensions.get("window");
 
 const ThunderBolt = ({
   left,
@@ -116,7 +114,7 @@ const ScreenFlash = () => {
   return (
     <Animated.View
       style={{
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFill,
         backgroundColor: "#FF2222",
         opacity,
         zIndex: 4,
@@ -137,6 +135,9 @@ const RainDrop = ({
 }) => {
   const translateY = useRef(new Animated.Value(-20)).current;
   const opacity = useRef(new Animated.Value(0.4)).current;
+  const { height } = useWindowDimensions();
+  const heightRef = useRef(height);
+  heightRef.current = height;
 
   useEffect(() => {
     const fall = () => {
@@ -144,7 +145,7 @@ const RainDrop = ({
       opacity.setValue(0.4);
       Animated.parallel([
         Animated.timing(translateY, {
-          toValue: height + 20,
+          toValue: heightRef.current + 20,
           duration,
           delay,
           useNativeDriver: true,
@@ -181,6 +182,7 @@ const RainDrop = ({
 };
 
 export const WeatherApp = () => {
+  const { width } = useWindowDimensions();
   const fadeIn = useRef(new Animated.Value(0)).current;
   const slideUp = useRef(new Animated.Value(40)).current;
 
@@ -205,7 +207,7 @@ export const WeatherApp = () => {
         source={{
           uri: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=800&q=80",
         }}
-        style={StyleSheet.absoluteFillObject}
+        style={StyleSheet.absoluteFill}
         resizeMode="cover"
       >
         <View style={styles.darkOverlay} />
@@ -374,7 +376,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A0A0A",
   },
   darkOverlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: "rgba(0,0,0,0.75)",
   },
   scrollContent: {

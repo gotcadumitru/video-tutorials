@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StatusBar,
-  Dimensions,
   Animated,
   Image,
 } from "react-native";
@@ -14,8 +13,6 @@ import {
   PanGestureHandler,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const { width, height } = Dimensions.get("window");
 
 const backgroundImage = require("./background.png");
 

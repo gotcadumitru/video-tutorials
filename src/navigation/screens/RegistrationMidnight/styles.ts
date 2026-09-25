@@ -1,6 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,14 +18,11 @@ export const styles = StyleSheet.create({
   },
   asphalt: {
     position: 'absolute',
-    width,
     height: '100%',
     opacity: 0.15,
   },
   tireTrack: {
     position: 'absolute',
-    width: width * 1.4,
-    height: width * 0.9,
     opacity: 0.08,
     tintColor: '#8AFFC1',
   },
@@ -43,8 +38,6 @@ export const styles = StyleSheet.create({
   },
   carGlow: {
     position: 'absolute',
-    width: width * 0.9,
-    height: width * 0.45,
     bottom: 80,
     left: -40,
     opacity: 0.14,
@@ -53,8 +46,6 @@ export const styles = StyleSheet.create({
   },
   carGhost: {
     position: 'absolute',
-    width: width * 0.7,
-    height: width * 0.32,
     top: 60,
     right: -50,
     opacity: 0.12,
@@ -215,3 +206,11 @@ export const styles = StyleSheet.create({
   },
 });
 
+export function getDynamicStyles(width: number) {
+  return {
+    asphalt: { width },
+    tireTrack: { width: width * 1.4, height: width * 0.9 },
+    carGlow: { width: width * 0.9, height: width * 0.45 },
+    carGhost: { width: width * 0.7, height: width * 0.32 },
+  };
+}

@@ -5,16 +5,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
   PanResponder,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const SIZE = 4;
-const { width } = Dimensions.get("window");
-const BOARD = Math.min(width - 32, 380);
 const GAP = 8;
-const TILE = (BOARD - GAP * (SIZE + 1)) / SIZE;
 
 type Grid = number[][];
 
@@ -100,6 +97,9 @@ function isOver(g: Grid): boolean {
 }
 
 export default function Game2048() {
+  const { width } = useWindowDimensions();
+  const BOARD = Math.min(width - 32, 380);
+  const TILE = (BOARD - GAP * (SIZE + 1)) / SIZE;
   const [grid, setGrid] = useState<Grid>(() => addRandom(addRandom(emptyGrid())));
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
@@ -166,13 +166,15 @@ export default function Game2048() {
         </Text>
 
         <View style={styles.boardWrap} {...responder.panHandlers}>
-          <View style={styles.board}>
+          <View style={[styles.board, { width: BOARD, height: BOARD }]}>
               {Array.from({ length: SIZE * SIZE }).map((_, i) => (
                 <View
                   key={i}
                   style={[
                     styles.bgTile,
                     {
+                      width: TILE,
+                      height: TILE,
                       left: GAP + (i % SIZE) * (TILE + GAP),
                       top: GAP + Math.floor(i / SIZE) * (TILE + GAP),
                     },
@@ -189,6 +191,8 @@ export default function Game2048() {
                       style={[
                         styles.tile,
                         {
+                          width: TILE,
+                          height: TILE,
                           backgroundColor: t.bg,
                           left: GAP + c * (TILE + GAP),
                           top: GAP + r * (TILE + GAP),
@@ -266,30 +270,24 @@ const styles = StyleSheet.create({
   subtitle: { color: "#9b96b8", fontSize: 13, marginTop: 12, lineHeight: 18 },
   boardWrap: { alignItems: "center", marginTop: 18 },
   board: {
-    width: BOARD,
-    height: BOARD,
     backgroundColor: "#27243a",
     borderRadius: 8,
     position: "relative",
   },
   bgTile: {
     position: "absolute",
-    width: TILE,
-    height: TILE,
     borderRadius: 6,
     backgroundColor: "rgba(255,255,255,0.05)",
   },
   tile: {
     position: "absolute",
-    width: TILE,
-    height: TILE,
     borderRadius: 6,
     alignItems: "center",
     justifyContent: "center",
   },
   tileTxt: { fontWeight: "900" },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: "rgba(21,19,30,0.92)",
     alignItems: "center",
     justifyContent: "center",

@@ -21,7 +21,7 @@ export function LoginScreen() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="light-content" />
       
       <LinearGradient
         colors={['#1a1f2e', '#1e2332', '#1a1f2e']}

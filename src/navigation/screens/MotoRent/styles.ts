@@ -1,6 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
-
-const { width, height } = Dimensions.get("window");
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,8 +8,6 @@ export const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    width: width,
-    height: height * 0.6, // Image takes top 60% initially
     position: "absolute",
     top: 0,
     left: 0,

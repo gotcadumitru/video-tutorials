@@ -3,17 +3,14 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
+  useWindowDimensions,
   StatusBar,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { styles } from './styles';
+import { styles, getRaceGameSizeStyles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const { width, height } = Dimensions.get('window');
 const LANE_COUNT = 3;
-const LANE_WIDTH = width * 0.8 / LANE_COUNT;
-const GAME_HEIGHT = height * 0.6;
 const TICK_RATE = 50; 
 const ENEMY_SPEED = 15;
 
@@ -24,13 +21,19 @@ interface Enemy {
 }
 
 export default function RaceGame() {
+  const { width, height } = useWindowDimensions();
+  const LANE_WIDTH = width * 0.8 / LANE_COUNT;
+  const GAME_HEIGHT = height * 0.6;
+  const sizeStyles = getRaceGameSizeStyles(width, height);
+  const gameHeightRef = useRef(GAME_HEIGHT);
+  gameHeightRef.current = GAME_HEIGHT;
   const [playerLane, setPlayerLane] = useState(1);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
 
-  const gameLoop = useRef<NodeJS.Timeout | null>(null);
+  const gameLoop = useRef<ReturnType<typeof setInterval> | null>(null);
   const scoreRef = useRef(0);
 
   const startGame = () => {
@@ -54,6 +57,7 @@ export default function RaceGame() {
   }, [isRunning, isGameOver, playerLane, enemies]);
 
   const updateGame = () => {
+    const GAME_HEIGHT = gameHeightRef.current;
     setEnemies((prevEnemies) => {
       const movedEnemies = prevEnemies
         .map(e => ({ ...e, y: e.y + ENEMY_SPEED }))
@@ -99,7 +103,7 @@ export default function RaceGame() {
             </View>
           </View>
 
-          <View style={styles.track}>
+          <View style={[styles.track, sizeStyles.track]}>
             {[...Array(LANE_COUNT)].map((_, i) => (
               <View key={i} style={styles.laneLine} />
             ))}
@@ -107,13 +111,13 @@ export default function RaceGame() {
             {enemies.map(enemy => (
               <View 
                 key={enemy.id} 
-                style={[styles.enemy, { left: enemy.lane * LANE_WIDTH + (LANE_WIDTH * 0.1), top: enemy.y }]}
+                style={[styles.enemy, sizeStyles.enemy, { left: enemy.lane * LANE_WIDTH + (LANE_WIDTH * 0.1), top: enemy.y }]}
               >
                 <Text style={{fontSize: 30}}>🚔</Text>
               </View>
             ))}
 
-            <View style={[styles.player, { left: playerLane * LANE_WIDTH + (LANE_WIDTH * 0.1) }]}>
+            <View style={[styles.player, sizeStyles.player, { left: playerLane * LANE_WIDTH + (LANE_WIDTH * 0.1) }]}>
               <Text style={{fontSize: 40}}>🏎️</Text>
               <View style={styles.playerGlow} />
             </View>

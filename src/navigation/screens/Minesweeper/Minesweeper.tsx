@@ -5,15 +5,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const SIZE = 9;
 const MINES = 12;
-const { width } = Dimensions.get("window");
-const CELL = Math.floor((width - 32) / SIZE);
 
 type Cell = {
   mine: boolean;
@@ -96,6 +94,8 @@ function checkWin(board: Board): boolean {
 }
 
 export default function Minesweeper() {
+  const { width } = useWindowDimensions();
+  const CELL = Math.floor((width - 32) / SIZE);
   const [board, setBoard] = useState<Board>(newBoard);
   const [flagMode, setFlagMode] = useState(false);
   const [status, setStatus] = useState<"playing" | "lost" | "won">("playing");

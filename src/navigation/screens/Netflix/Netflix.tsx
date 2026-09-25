@@ -8,13 +8,11 @@ import {
   StyleSheet,
   StatusBar,
   ImageBackground,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-
-const { width } = Dimensions.get("window");
 
 const HERO = {
   title: "Stranger Worlds",
@@ -48,6 +46,7 @@ const TOP_10 = [
 ];
 
 function PosterRow({ title, posters }: { title: string; posters: string[] }) {
+  const { width } = useWindowDimensions();
   return (
     <View style={{ marginTop: 22 }}>
       <Text style={styles.rowTitle}>{title}</Text>
@@ -57,7 +56,17 @@ function PosterRow({ title, posters }: { title: string; posters: string[] }) {
         contentContainerStyle={{ paddingHorizontal: 14, gap: 8 }}
       >
         {posters.map((uri, i) => (
-          <Image key={i} source={{ uri }} style={styles.poster} />
+          <Image
+            key={i}
+            source={{ uri }}
+            style={[
+              styles.poster,
+              {
+                width: (width - 32 - 24) / 3.2,
+                height: ((width - 32 - 24) / 3.2) * 1.45,
+              },
+            ]}
+          />
         ))}
       </ScrollView>
     </View>
@@ -308,8 +317,6 @@ const styles = StyleSheet.create({
   },
   rowTitleInline: { color: "#fff", fontSize: 17, fontWeight: "800" },
   poster: {
-    width: (width - 32 - 24) / 3.2,
-    height: ((width - 32 - 24) / 3.2) * 1.45,
     borderRadius: 4,
     backgroundColor: "#222",
   },

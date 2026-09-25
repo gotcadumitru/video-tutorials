@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
 const LANE_COUNT = 3;
-const LANE_WIDTH = width * 0.8 / LANE_COUNT;
-const GAME_HEIGHT = height * 0.6;
 const TICK_RATE = 50;
 const ENEMY_SPEED = 15;
 
@@ -29,13 +26,18 @@ export interface UseRaceGameReturn {
 }
 
 export function useRaceGame(): UseRaceGameReturn {
+  const { width, height } = useWindowDimensions();
+  const LANE_WIDTH = width * 0.8 / LANE_COUNT;
+  const GAME_HEIGHT = height * 0.6;
+  const gameHeightRef = useRef(GAME_HEIGHT);
+  gameHeightRef.current = GAME_HEIGHT;
   const [playerLane, setPlayerLane] = useState(1);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
 
-  const gameLoop = useRef<NodeJS.Timeout | null>(null);
+  const gameLoop = useRef<ReturnType<typeof setInterval> | null>(null);
   const scoreRef = useRef(0);
 
   const startGame = () => {
@@ -61,6 +63,7 @@ export function useRaceGame(): UseRaceGameReturn {
   }, [isRunning, isGameOver, playerLane, enemies]);
 
   const updateGame = () => {
+    const GAME_HEIGHT = gameHeightRef.current;
     setEnemies((prevEnemies) => {
       const movedEnemies = prevEnemies
         .map(e => ({ ...e, y: e.y + ENEMY_SPEED }))

@@ -5,12 +5,10 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-const { width } = Dimensions.get("window");
-const GAME_W = Math.min(width - 32, 420);
 const GAME_H = 200;
 const GROUND_Y = 160;
 const DINO_X = 40;
@@ -21,19 +19,19 @@ const JUMP_V = -16;
 
 type Obstacle = { x: number; w: number; h: number; type: "cactus" | "bird"; y?: number };
 
-function spawnObstacle(): Obstacle {
+function spawnObstacle(gameW: number): Obstacle {
   const r = Math.random();
   if (r < 0.65) {
     const big = Math.random() < 0.4;
     return {
-      x: GAME_W + 20,
+      x: gameW + 20,
       w: big ? 22 : 14,
       h: big ? 38 : 26,
       type: "cactus",
     };
   }
   return {
-    x: GAME_W + 20,
+    x: gameW + 20,
     w: 30,
     h: 22,
     type: "bird",
@@ -42,6 +40,8 @@ function spawnObstacle(): Obstacle {
 }
 
 export default function DinoRun() {
+  const { width } = useWindowDimensions();
+  const GAME_W = Math.min(width - 32, 420);
   const [dinoY, setDinoY] = useState(GROUND_Y - DINO_H);
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [score, setScore] = useState(0);
@@ -57,10 +57,12 @@ export default function DinoRun() {
   const speedRef = useRef(6);
   const spawnTimerRef = useRef(0);
   const runningRef = useRef(false);
+  const gameWRef = useRef(GAME_W);
 
   dinoYRef.current = dinoY;
   obsRef.current = obstacles;
   runningRef.current = running;
+  gameWRef.current = GAME_W;
 
   const jump = useCallback(() => {
     if (!runningRef.current) {
@@ -115,7 +117,7 @@ export default function DinoRun() {
       spawnTimerRef.current += 1;
       const minGap = Math.max(38, 90 - Math.floor(scoreRef.current / 30));
       if (spawnTimerRef.current > minGap && Math.random() < 0.04) {
-        moved.push(spawnObstacle());
+        moved.push(spawnObstacle(gameWRef.current));
         spawnTimerRef.current = 0;
       }
       obsRef.current = moved;
@@ -166,7 +168,7 @@ export default function DinoRun() {
       </View>
 
       <TouchableWithoutFeedback onPress={jump}>
-        <View style={styles.gameArea}>
+        <View style={[styles.gameArea, { width: GAME_W }]}>
           {/* Stars */}
           {[
             [40, 18], [120, 36], [220, 24], [310, 50], [380, 12],
@@ -320,7 +322,6 @@ const styles = StyleSheet.create({
     fontFamily: "Courier",
   },
   gameArea: {
-    width: GAME_W,
     height: GAME_H,
     backgroundColor: "#0d0d0f",
     borderWidth: 1,

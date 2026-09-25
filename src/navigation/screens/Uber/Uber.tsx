@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   mapTint: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: "rgba(0,0,0,0.15)",
   },
   topControls: {

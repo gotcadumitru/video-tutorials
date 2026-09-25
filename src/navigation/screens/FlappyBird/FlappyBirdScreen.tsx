@@ -5,18 +5,15 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Animated,
-  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   useFlappyBird,
-  BIRD_START_X,
   OBSTACLE_GAP,
   PIPE_CAP_HEIGHT,
 } from './useFlappyBird';
 import { styles } from './styles';
-
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export function FlappyBird() {
   const {
@@ -27,9 +24,11 @@ export function FlappyBird() {
     score,
     bestScore,
     birdRotationStyle,
+    birdStartX,
     jump,
     startGame,
   } = useFlappyBird();
+  const { height: screenHeight } = useWindowDimensions();
 
   return (
     <TouchableWithoutFeedback onPress={jump}>
@@ -75,7 +74,7 @@ export function FlappyBird() {
               {
                 left: obs.x,
                 top: obs.topHeight + OBSTACLE_GAP,
-                height: SCREEN_HEIGHT - (obs.topHeight + OBSTACLE_GAP),
+                height: screenHeight - (obs.topHeight + OBSTACLE_GAP),
               },
             ]}
           />
@@ -95,7 +94,7 @@ export function FlappyBird() {
         style={[
           styles.bird,
           {
-            left: BIRD_START_X,
+            left: birdStartX,
             top: birdPosition,
           },
           birdRotationStyle,

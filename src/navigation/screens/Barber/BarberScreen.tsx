@@ -44,7 +44,7 @@ const mapImage =
 export function Barber() {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0F172A" />
+      <StatusBar barStyle="light-content" />
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
           <Image source={{ uri: heroImage }} style={styles.heroImage} />
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     height: 280,
   },
   heroGradient: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(15, 23, 42, 0.55)',
   },
   heroContent: {

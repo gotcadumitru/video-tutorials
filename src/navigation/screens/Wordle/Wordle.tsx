@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -17,8 +17,6 @@ const WORDS = [
 
 const ROWS = 6;
 const LEN = 5;
-const { width } = Dimensions.get("window");
-const TILE = Math.min((width - 80) / LEN, 60);
 
 type State = "empty" | "tbd" | "absent" | "present" | "correct";
 
@@ -57,6 +55,8 @@ const COLOR: Record<State, string> = {
 };
 
 export default function Wordle() {
+  const { width } = useWindowDimensions();
+  const TILE = Math.min((width - 80) / LEN, 60);
   const [answer, setAnswer] = useState(() => WORDS[Math.floor(Math.random() * WORDS.length)]);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [current, setCurrent] = useState("");
@@ -170,6 +170,8 @@ export default function Wordle() {
                     style={[
                       styles.tile,
                       {
+                        width: TILE,
+                        height: TILE,
                         backgroundColor: COLOR[state],
                         borderColor:
                           state === "empty"
@@ -180,7 +182,7 @@ export default function Wordle() {
                       },
                     ]}
                   >
-                    <Text style={styles.tileTxt}>{letter}</Text>
+                    <Text style={[styles.tileTxt, { fontSize: TILE * 0.5 }]}>{letter}</Text>
                   </View>
                 );
               })}
@@ -261,14 +263,12 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: 6 },
   rowShake: { transform: [{ translateX: 4 }] },
   tile: {
-    width: TILE,
-    height: TILE,
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 2,
   },
-  tileTxt: { color: "#fff", fontSize: TILE * 0.5, fontWeight: "800" },
+  tileTxt: { color: "#fff", fontWeight: "800" },
   keyboard: { paddingHorizontal: 4, paddingBottom: 28, gap: 6 },
   keyRow: { flexDirection: "row", justifyContent: "center", gap: 4 },
   key: {

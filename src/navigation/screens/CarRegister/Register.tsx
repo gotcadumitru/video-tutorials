@@ -7,7 +7,7 @@ import {
   Chart,
   ColorPicker,
 } from "@expo/ui/swift-ui";
-import { glassEffect, padding } from "@expo/ui/swift-ui/modifiers";
+import { glassEffect, keyboardType, padding } from "@expo/ui/swift-ui/modifiers";
 import {
   View,
   Text,
@@ -16,13 +16,11 @@ import {
   StyleSheet,
   ImageBackground,
   Image,
-  Dimensions,
   StatusBar,
   ScrollView,
+  useWindowDimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-const { width, height } = Dimensions.get("window");
 
 // Import assets from CarRegister folder
 const backgroundImage = require("./assets/screen_background.jpg");
@@ -30,6 +28,7 @@ const carImage = require("./assets/car.png");
 
 export function Register() {
   const navigation = useNavigation();
+  const { width, height } = useWindowDimensions();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,14 +49,12 @@ export function Register() {
     <View style={styles.container}>
       <StatusBar
         barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
       />
 
       {/* Background Image */}
       <ImageBackground
         source={backgroundImage}
-        style={styles.backgroundImage}
+        style={[styles.backgroundImage, { width: width, height: height }]}
         resizeMode="cover"
       >
         {/* Overlay for better text readability */}
@@ -81,7 +78,7 @@ export function Register() {
             <Host matchContents>
               <TextField
                 placeholder="Full Name"
-                onChangeText={() => {}}
+                onTextChange={() => {}}
                 modifiers={[
                   padding({
                     all: 16,
@@ -94,7 +91,7 @@ export function Register() {
                   }),
                 ]}
                 // placeholder="Full Name"
-                // onChangeText={setPassword}
+                // onTextChange={setPassword}
               />
             </Host>
           </View>
@@ -111,10 +108,10 @@ export function Register() {
                       variant: "regular",
                     },
                   }),
+                  keyboardType("email-address"),
                 ]}
                 placeholder="Email"
-                keyboardType="email-address"
-                onChangeText={setPassword}
+                onTextChange={setPassword}
               />
             </Host>
           </View>
@@ -133,7 +130,7 @@ export function Register() {
                   }),
                 ]}
                 placeholder="Password"
-                onChangeText={setPassword}
+                onTextChange={setPassword}
               />
             </Host>
           </View>
@@ -184,8 +181,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    width: width,
-    height: height,
   },
   overlay: {
     position: "absolute",

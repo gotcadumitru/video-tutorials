@@ -4,16 +4,15 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
+  useWindowDimensions,
   StatusBar,
 } from 'react-native';
 
-const { width } = Dimensions.get('window');
-
 export function Dashboard() {
+  const { width } = useWindowDimensions();
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#6366F1" />
+      <StatusBar barStyle="light-content" />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
@@ -27,19 +26,19 @@ export function Dashboard() {
 
         {/* Stats Grid */}
         <View style={styles.statsGrid}>
-          <View style={[styles.statCard, { backgroundColor: '#FF6B6B' }]}>
+          <View style={[styles.statCard, { width: (width - 45) / 2, backgroundColor: '#FF6B6B' }]}>
             <Text style={styles.statValue}>1,234</Text>
             <Text style={styles.statLabel}>Total Users</Text>
           </View>
-          <View style={[styles.statCard, { backgroundColor: '#4ECDC4' }]}>
+          <View style={[styles.statCard, { width: (width - 45) / 2, backgroundColor: '#4ECDC4' }]}>
             <Text style={styles.statValue}>$45.2K</Text>
             <Text style={styles.statLabel}>Revenue</Text>
           </View>
-          <View style={[styles.statCard, { backgroundColor: '#FFE66D' }]}>
+          <View style={[styles.statCard, { width: (width - 45) / 2, backgroundColor: '#FFE66D' }]}>
             <Text style={styles.statValue}>892</Text>
             <Text style={styles.statLabel}>Orders</Text>
           </View>
-          <View style={[styles.statCard, { backgroundColor: '#A78BFA' }]}>
+          <View style={[styles.statCard, { width: (width - 45) / 2, backgroundColor: '#A78BFA' }]}>
             <Text style={styles.statValue}>98%</Text>
             <Text style={styles.statLabel}>Satisfaction</Text>
           </View>
@@ -111,16 +110,16 @@ export function Dashboard() {
         <View style={styles.widget}>
           <Text style={styles.widgetTitle}>Quick Actions</Text>
           <View style={styles.actionsGrid}>
-            <View style={[styles.actionButton, { backgroundColor: '#6366F1' }]}>
+            <View style={[styles.actionButton, { width: (width - 74) / 2, backgroundColor: '#6366F1' }]}>
               <Text style={styles.actionButtonText}>📊 Reports</Text>
             </View>
-            <View style={[styles.actionButton, { backgroundColor: '#EC4899' }]}>
+            <View style={[styles.actionButton, { width: (width - 74) / 2, backgroundColor: '#EC4899' }]}>
               <Text style={styles.actionButtonText}>⚙️ Settings</Text>
             </View>
-            <View style={[styles.actionButton, { backgroundColor: '#10B981' }]}>
+            <View style={[styles.actionButton, { width: (width - 74) / 2, backgroundColor: '#10B981' }]}>
               <Text style={styles.actionButtonText}>👥 Users</Text>
             </View>
-            <View style={[styles.actionButton, { backgroundColor: '#F59E0B' }]}>
+            <View style={[styles.actionButton, { width: (width - 74) / 2, backgroundColor: '#F59E0B' }]}>
               <Text style={styles.actionButtonText}>📈 Analytics</Text>
             </View>
           </View>
@@ -167,7 +166,6 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   statCard: {
-    width: (width - 45) / 2,
     borderRadius: 20,
     padding: 20,
     elevation: 3,
@@ -267,7 +265,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   actionButton: {
-    width: (width - 74) / 2,
     borderRadius: 15,
     padding: 18,
     alignItems: 'center',

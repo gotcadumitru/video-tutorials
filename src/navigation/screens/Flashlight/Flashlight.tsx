@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   glowOuter: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     borderRadius: 160,
     backgroundColor: "rgba(251,191,36,0.12)",
     alignItems: "center",

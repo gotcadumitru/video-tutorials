@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#171c26",
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     overflow: "hidden",
   },
   water: {

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
-  Dimensions,
   Easing,
   Image,
   ImageBackground,
@@ -10,11 +9,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
-const { width, height } = Dimensions.get("window");
 
 const VIDEO_BG =
   "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=80";
@@ -31,6 +29,7 @@ const ACTIONS = [
 ] as const;
 
 export default function TikTok() {
+  const { width, height } = useWindowDimensions();
   const spin = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export default function TikTok() {
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />
-      <ImageBackground source={{ uri: VIDEO_BG }} style={styles.video}>
+      <ImageBackground source={{ uri: VIDEO_BG }} style={[styles.video, { width, height: height - 64 }]}>
         <LinearGradient
           colors={["rgba(0,0,0,0.55)", "transparent"]}
           style={styles.topFade}
@@ -144,10 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
   },
-  video: {
-    width,
-    height: height - 64,
-  },
+  video: {},
   topFade: {
     position: "absolute",
     top: 0,

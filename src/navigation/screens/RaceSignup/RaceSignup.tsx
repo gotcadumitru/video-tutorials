@@ -6,15 +6,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
-  Dimensions,
   StatusBar,
   ScrollView,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const { width, height } = Dimensions.get("window");
-
 export default function RaceSignup() {
+  const { width, height } = useWindowDimensions();
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -22,7 +21,7 @@ export default function RaceSignup() {
         source={{
           uri: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800",
         }}
-        style={styles.backgroundImage}
+        style={[styles.backgroundImage, { width: width, height: height }]}
         resizeMode="cover"
       >
         <LinearGradient
@@ -146,8 +145,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    width: width,
-    height: height,
   },
   gradient: {
     flex: 1,

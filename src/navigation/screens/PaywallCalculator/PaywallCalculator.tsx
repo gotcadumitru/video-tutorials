@@ -5,13 +5,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import { Paywall } from "../../../components/Paywall";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
-const { width } = Dimensions.get("window");
-const BTN = (width - 60) / 4;
 
 type Op = "+" | "-" | "×" | "÷" | null;
 
@@ -192,13 +189,15 @@ function Btn({
       : variant === "util"
       ? "#0a0a0a"
       : "#fff";
+  const { width } = useWindowDimensions();
+  const BTN = (width - 60) / 4;
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.75}
       style={[
         styles.btn,
-        { backgroundColor: bg, width: wide ? BTN * 2 + 12 : BTN },
+        { backgroundColor: bg, width: wide ? BTN * 2 + 12 : BTN, height: BTN, borderRadius: BTN / 2 },
       ]}
     >
       <Text
@@ -245,8 +244,6 @@ const styles = StyleSheet.create({
   pad: { gap: 12, paddingBottom: 32 },
   row: { flexDirection: "row", gap: 12 },
   btn: {
-    height: BTN,
-    borderRadius: BTN / 2,
     alignItems: "center",
     justifyContent: "center",
   },

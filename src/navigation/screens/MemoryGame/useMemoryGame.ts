@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 // Game Constants
-const { width } = Dimensions.get('window');
 const GRID_COLS = 4;
-const CARD_SIZE = (width - 60) / GRID_COLS;
 const ICONS = ['🔥', '⚡', '💎', '🚀', '👾', '🍀', '🎵', '🕹️'];
 
 // Types
@@ -27,6 +25,8 @@ export interface UseMemoryGameReturn {
 }
 
 export function useMemoryGame(): UseMemoryGameReturn {
+  const { width } = useWindowDimensions();
+  const CARD_SIZE = (width - 60) / GRID_COLS;
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);

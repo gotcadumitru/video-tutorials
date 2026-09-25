@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   dim: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: "rgba(0,0,0,0.25)",
   },
   top: {

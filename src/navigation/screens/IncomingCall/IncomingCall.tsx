@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   dim: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: "rgba(0,0,0,0.45)",
   },
   caller: {

@@ -4,16 +4,14 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-const { width } = Dimensions.get('window');
 
 export function Dashboard2() {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#FF6B9D" />
+      <StatusBar barStyle="dark-content" />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}

@@ -5,15 +5,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const COLS = 10;
 const ROWS = 20;
-const { width } = Dimensions.get("window");
-const CELL = Math.floor((width - 40) / COLS);
 
 type Cell = number; // 0 = empty, 1..7 = color index
 type Board = Cell[][];
@@ -94,6 +92,8 @@ function randomPiece() {
 }
 
 export default function Tetris() {
+  const { width } = useWindowDimensions();
+  const CELL = Math.floor((width - 40) / COLS);
   const [board, setBoard] = useState<Board>(emptyBoard);
   const [piece, setPiece] = useState(() => randomPiece());
   const [next, setNext] = useState(() => randomPiece());
@@ -240,6 +240,8 @@ export default function Tetris() {
                   style={[
                     styles.cell,
                     {
+                      width: CELL,
+                      height: CELL,
                       backgroundColor: c ? COLORS[c] : "#0a0a0f",
                       borderTopColor: c ? "rgba(255,255,255,0.4)" : "transparent",
                       borderLeftColor: c ? "rgba(255,255,255,0.4)" : "transparent",
@@ -333,8 +335,6 @@ const styles = StyleSheet.create({
   },
   row: { flexDirection: "row" },
   cell: {
-    width: CELL,
-    height: CELL,
     borderWidth: 1,
   },
   sidePanel: { flex: 1, alignItems: "center" },

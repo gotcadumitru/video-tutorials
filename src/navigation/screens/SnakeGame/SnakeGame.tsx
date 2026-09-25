@@ -7,13 +7,12 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSnakeGame, GRID_SIZE, CELL_SIZE } from './useSnakeGame';
+import { useSnakeGame, GRID_SIZE } from './useSnakeGame';
 import { styles } from './styles';
 
-const BOARD_SIZE = CELL_SIZE * GRID_SIZE;
-
 export default function SnakeGame() {
-  const { snake, food, score, gameOver, isPlaying, changeDirection, restartGame, startGame } = useSnakeGame();
+  const { snake, food, score, gameOver, isPlaying, changeDirection, restartGame, startGame, cellSize } = useSnakeGame();
+  const boardSize = cellSize * GRID_SIZE;
 
   return (
     <View style={styles.container}>
@@ -32,15 +31,15 @@ export default function SnakeGame() {
             </View>
           </View>
 
-          <View style={[styles.board, { width: BOARD_SIZE, height: BOARD_SIZE }]}>
+          <View style={[styles.board, { width: boardSize, height: boardSize }]}>
             <View
               style={[
                 styles.food,
                 {
-                  left: food[0] * CELL_SIZE,
-                  top: food[1] * CELL_SIZE,
-                  width: CELL_SIZE,
-                  height: CELL_SIZE,
+                  left: food[0] * cellSize,
+                  top: food[1] * cellSize,
+                  width: cellSize,
+                  height: cellSize,
                 },
               ]}
             />
@@ -51,10 +50,10 @@ export default function SnakeGame() {
                 style={[
                   styles.snakeSegment,
                   {
-                    left: segment[0] * CELL_SIZE,
-                    top: segment[1] * CELL_SIZE,
-                    width: CELL_SIZE,
-                    height: CELL_SIZE,
+                    left: segment[0] * cellSize,
+                    top: segment[1] * cellSize,
+                    width: cellSize,
+                    height: cellSize,
                     backgroundColor: index === 0 ? '#00FF00' : 'rgba(0, 255, 0, 0.6)',
                     zIndex: index === 0 ? 10 : 1
                   },

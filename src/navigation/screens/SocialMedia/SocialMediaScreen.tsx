@@ -1,16 +1,14 @@
 import React from 'react';
 import {
-  Dimensions,
   Image,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
-
-const { width } = Dimensions.get('window');
 
 const stories = [
   { id: '1', name: 'Ava', gradient: ['#F97316', '#F97316'] },
@@ -48,9 +46,10 @@ const spaces = [
 ];
 
 export function SocialMedia() {
+  const { width } = useWindowDimensions();
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0B1120" />
+      <StatusBar barStyle="light-content" />
       <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View>
@@ -125,7 +124,7 @@ export function SocialMedia() {
 
         <View style={styles.spaceStack}>
           {spaces.map((space) => (
-            <TouchableOpacity key={space.id} activeOpacity={0.85} style={styles.spaceCard}>
+            <TouchableOpacity key={space.id} activeOpacity={0.85} style={[styles.spaceCard, { width: width - 40 }]}>
               <View>
                 <Text style={styles.spaceTitle}>{space.title}</Text>
                 <Text style={styles.spaceMeta}>{space.members}</Text>
@@ -280,7 +279,6 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   spaceCard: {
-    width: width - 40,
     backgroundColor: '#111827',
     borderRadius: 24,
     paddingVertical: 20,

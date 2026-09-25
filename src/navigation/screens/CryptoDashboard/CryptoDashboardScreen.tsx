@@ -4,11 +4,9 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
+  useWindowDimensions,
   StatusBar,
 } from 'react-native';
-
-const { width } = Dimensions.get('window');
 
 // Data arrays to eliminate duplication
 const cryptoData = [
@@ -48,10 +46,11 @@ const transactionData = [
     return styleMap[style];
   };
 export function CryptoDashboard() {
+  const { width } = useWindowDimensions();
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0A0E27" />
+      <StatusBar barStyle="light-content" />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
@@ -74,7 +73,7 @@ export function CryptoDashboard() {
         {/* Crypto Cards Grid */}
         <View style={styles.cardsGrid}>
           {cryptoData.map((crypto, index) => (
-            <View key={index} style={[styles.cryptoCard, crypto.cardStyle]}>
+            <View key={index} style={[styles.cryptoCard, { width: (width - 45) / 2 }, crypto.cardStyle]}>
               <View style={styles.cryptoHeader}>
                 <View style={styles.cryptoIconContainer}>
                   <Text style={styles.cryptoIcon}>{crypto.icon}</Text>
@@ -131,7 +130,7 @@ export function CryptoDashboard() {
           <Text style={styles.widgetTitle}>Quick Actions</Text>
           <View style={styles.actionsGrid}>
             {actionData.map((action, index) => (
-              <View key={index} style={[styles.actionButton, { backgroundColor: action.color }]}>
+              <View key={index} style={[styles.actionButton, { width: (width - 94) / 2, backgroundColor: action.color }]}>
                 <Text style={styles.actionButtonIcon}>{action.icon}</Text>
                 <Text style={styles.actionButtonText}>{action.label}</Text>
               </View>
@@ -235,7 +234,6 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   cryptoCard: {
-    width: (width - 45) / 2,
     borderRadius: 20,
     padding: 18,
     elevation: 5,
@@ -392,7 +390,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   actionButton: {
-    width: (width - 94) / 2,
     borderRadius: 15,
     padding: 18,
     alignItems: 'center',

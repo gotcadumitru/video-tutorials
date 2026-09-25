@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 // Game Constants
-const { width } = Dimensions.get('window');
 const GRID_SIZE = 20; // 20x20 grid
-const CELL_SIZE = Math.floor((width - 40) / GRID_SIZE);
 const SPEED = 200; // ms
 
 // Types
@@ -20,9 +18,12 @@ export interface UseSnakeGameReturn {
   changeDirection: (newDir: Direction) => void;
   restartGame: () => void;
   startGame: () => void;
+  cellSize: number;
 }
 
 export function useSnakeGame(): UseSnakeGameReturn {
+  const { width } = useWindowDimensions();
+  const cellSize = Math.floor((width - 40) / GRID_SIZE);
   const [snake, setSnake] = useState<Point[]>([[10, 10], [10, 11], [10, 12]]);
   const [food, setFood] = useState<Point>([5, 5]);
   const [direction, setDirection] = useState<Direction>('UP');
@@ -32,7 +33,7 @@ export function useSnakeGame(): UseSnakeGameReturn {
 
   // Refs to prevent closure staleness in interval
   const directionRef = useRef<Direction>('UP');
-  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const gameLoopRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (isPlaying && !gameOver) {
@@ -145,7 +146,8 @@ export function useSnakeGame(): UseSnakeGameReturn {
     changeDirection,
     restartGame,
     startGame,
+    cellSize,
   };
 }
 
-export { GRID_SIZE, CELL_SIZE };
+export { GRID_SIZE };

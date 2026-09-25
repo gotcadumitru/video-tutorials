@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   headerIcon: { paddingHorizontal: 10 },
   body: { flex: 1, backgroundColor: "#0b141a" },
   doodleLayer: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     overflow: "hidden",
   },
   encryptionNotice: {

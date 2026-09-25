@@ -4,11 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   StatusBar,
 } from 'react-native';
-
-const { width } = Dimensions.get('window');
 
 // Data arrays for stocks
 const stocksData = [
@@ -53,7 +50,7 @@ export function StocksDashboard() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#1A0B2E" />
+      <StatusBar barStyle="light-content" />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}

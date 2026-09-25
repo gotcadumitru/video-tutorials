@@ -1,7 +1,4 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
-
+import { Platform, StyleSheet } from 'react-native';
 
 const RED = "#E60023";
 

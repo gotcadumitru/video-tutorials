@@ -5,13 +5,11 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  Dimensions,
   Platform,
   StatusBar,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
-const { width } = Dimensions.get("window");
 
 // Halloween palette
 const halloweenColors = {
@@ -132,6 +130,7 @@ const postsData = [
 ];
 
 export const InstagramScreen = () => {
+  const { width } = useWindowDimensions();
   return (
     <View style={{ flex: 1, backgroundColor: "#000" }}>
       <StatusBar barStyle="light-content" />

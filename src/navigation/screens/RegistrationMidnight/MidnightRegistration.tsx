@@ -9,16 +9,19 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { styles } from './styles';
+import { getDynamicStyles, styles } from './styles';
 
 const carImage = require('../CarRegister/assets/car.png');
 const asphaltTexture = require('../CarRegister/assets/screen_background.jpg');
 const tireTrack = require('../Login_1/assets/type_track.png');
 
 export function MidnightRegistration() {
+  const { width } = useWindowDimensions();
+  const dynamicStyles = getDynamicStyles(width);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,18 +34,18 @@ export function MidnightRegistration() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="light-content" />
 
       <LinearGradient
         colors={['#05070B', '#0B0F18', '#05070B']}
         style={styles.gradient}
       >
         <View style={styles.backgroundLayer}>
-          <Image source={asphaltTexture} style={styles.asphalt} resizeMode="cover" />
-          <Image source={tireTrack} style={[styles.tireTrack, styles.tireTrackTop]} resizeMode="contain" />
-          <Image source={tireTrack} style={[styles.tireTrack, styles.tireTrackBottom]} resizeMode="contain" />
-          <Image source={carImage} style={styles.carGlow} resizeMode="contain" />
-          <Image source={carImage} style={styles.carGhost} resizeMode="contain" />
+          <Image source={asphaltTexture} style={[styles.asphalt, dynamicStyles.asphalt]} resizeMode="cover" />
+          <Image source={tireTrack} style={[styles.tireTrack, styles.tireTrackTop, dynamicStyles.tireTrack]} resizeMode="contain" />
+          <Image source={tireTrack} style={[styles.tireTrack, styles.tireTrackBottom, dynamicStyles.tireTrack]} resizeMode="contain" />
+          <Image source={carImage} style={[styles.carGlow, dynamicStyles.carGlow]} resizeMode="contain" />
+          <Image source={carImage} style={[styles.carGhost, dynamicStyles.carGhost]} resizeMode="contain" />
         </View>
 
         <ScrollView

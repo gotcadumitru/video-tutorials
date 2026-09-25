@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     fontSize: 32,
   },
   matchedGlow: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     borderRadius: 6,
     borderWidth: 2,
     borderColor: '#00d2ff',

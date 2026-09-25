@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
+  type ViewInstance,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -26,7 +27,7 @@ function BrightnessSlider({ value, onValueChange }: BrightnessSliderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const startY = useRef(0);
   const startValue = useRef(0);
-  const containerRef = useRef<View>(null);
+  const containerRef = useRef<ViewInstance>(null);
   
   // Animated value for sun position (initialize based on current value)
   const initialDarkHeight = (1 - value) * SLIDER_HEIGHT;

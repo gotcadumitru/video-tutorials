@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,6 +14,7 @@ import { styles } from "./styles";
 
 export default function MotoRent() {
   const [consent, setConsent] = useState(false);
+  const { width, height } = useWindowDimensions();
 
   return (
     <View style={styles.container}>
@@ -20,7 +22,7 @@ export default function MotoRent() {
         source={{
           uri: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2670&auto=format&fit=crop",
         }}
-        style={styles.backgroundImage}
+        style={[styles.backgroundImage, { width: width, height: height * 0.6 }]}
         resizeMode="cover"
       ></ImageBackground>
       <LinearGradient

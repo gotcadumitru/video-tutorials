@@ -10,12 +10,14 @@ import {
   Platform,
   ScrollView,
   StatusBar,
+  useWindowDimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 
 export function FinanceRegisterScreen() {
+  const { width, height } = useWindowDimensions();
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -23,7 +25,7 @@ export function FinanceRegisterScreen() {
         source={{
           uri: 'https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?q=80&w=2670&auto=format&fit=crop',
         }}
-        style={styles.backgroundImage}
+        style={[styles.backgroundImage, { width: width, height: height }]}
         resizeMode="cover"
       >
         <LinearGradient

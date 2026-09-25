@@ -5,14 +5,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { AIThinking, AIStep } from "../../../components/AIThinking";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-
-const { width } = Dimensions.get("window");
-const BTN = (width - 60) / 4;
 
 type Op = "+" | "-" | "×" | "÷" | null;
 
@@ -210,15 +207,17 @@ function Btn({
       ? "transparent"
       : "#3f3f5c";
   const fg = variant === "op" ? "#000" : variant === "util" ? "#cbd5e1" : "#fff";
+  const { width } = useWindowDimensions();
+  const BTN = (width - 60) / 4;
 
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.75}
-      style={[styles.btn, { width: wide ? BTN * 2 + 12 : BTN }]}
+      style={[styles.btn, { width: wide ? BTN * 2 + 12 : BTN, height: BTN, borderRadius: BTN / 2 }]}
     >
       {variant === "eq" ? (
-        <View style={styles.eqBtn}>
+        <View style={[styles.eqBtn, { borderRadius: BTN / 2 }]}>
           <LinearGradient
             colors={["#22d3ee", "#a855f7"]}
             start={{ x: 0, y: 0 }}
@@ -229,7 +228,7 @@ function Btn({
           <Text style={[styles.btnTxt, { fontSize: 20, color: "#000" }]}>{label}</Text>
         </View>
       ) : (
-        <View style={[styles.btnFill, { backgroundColor: bg }]}>
+        <View style={[styles.btnFill, { borderRadius: BTN / 2, backgroundColor: bg }]}>
           <Text
             style={[
               styles.btnTxt,
@@ -276,10 +275,9 @@ const styles = StyleSheet.create({
   display: { color: "#fff", fontSize: 84, fontWeight: "200", letterSpacing: -2 },
   pad: { gap: 12, paddingBottom: 32 },
   row: { flexDirection: "row", gap: 12 },
-  btn: { height: BTN, borderRadius: BTN / 2, overflow: "hidden" },
+  btn: { overflow: "hidden" },
   btnFill: {
     flex: 1,
-    borderRadius: BTN / 2,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -287,7 +285,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     gap: 6,
-    borderRadius: BTN / 2,
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",

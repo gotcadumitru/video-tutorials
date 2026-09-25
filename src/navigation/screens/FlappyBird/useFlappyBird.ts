@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Animated, Dimensions } from 'react-native';
+import { Animated, useWindowDimensions } from 'react-native';
 
 // --- Constants ---
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 export const BIRD_SIZE = 40;
-export const BIRD_START_X = SCREEN_WIDTH * 0.2;
-export const BIRD_START_Y = SCREEN_HEIGHT / 2;
 const GRAVITY = 0.8;
 const JUMP_STRENGTH = -12;
 export const OBSTACLE_WIDTH = 80;
@@ -22,10 +19,16 @@ export type Obstacle = {
 };
 
 export const useFlappyBird = () => {
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+  const birdStartX = screenWidth * 0.2;
+  const birdStartY = screenHeight / 2;
+  const screenSizeRef = useRef({ width: screenWidth, height: screenHeight });
+  screenSizeRef.current = { width: screenWidth, height: screenHeight };
+
   // --- State ---
   const [gameRunning, setGameRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [birdPosition, setBirdPosition] = useState(BIRD_START_Y);
+  const [birdPosition, setBirdPosition] = useState(birdStartY);
   const [birdVelocity, setBirdVelocity] = useState(0);
   const [obstacles, setObstacles] = useState<Obstacle[]>([]);
   const [score, setScore] = useState(0);
@@ -61,7 +64,7 @@ export const useFlappyBird = () => {
   const startGame = () => {
     setGameRunning(true);
     setGameOver(false);
-    setBirdPosition(BIRD_START_Y);
+    setBirdPosition(birdStartY);
     birdVelocityRef.current = 0;
     setBirdVelocity(0);
     setObstacles([]);
@@ -75,7 +78,7 @@ export const useFlappyBird = () => {
   const resetGame = () => {
     setGameRunning(false);
     setGameOver(false);
-    setBirdPosition(BIRD_START_Y);
+    setBirdPosition(birdStartY);
     birdVelocityRef.current = 0;
     setBirdVelocity(0);
     setObstacles([]);
@@ -136,7 +139,7 @@ export const useFlappyBird = () => {
         setBirdPosition((pos) => {
           const velocityDelta = (birdVelocityRef.current * deltaTime) / FRAME_TIME;
           const newPos = pos + velocityDelta;
-          return Math.max(0, Math.min(SCREEN_HEIGHT - BIRD_SIZE, newPos));
+          return Math.max(0, Math.min(screenSizeRef.current.height - BIRD_SIZE, newPos));
         });
 
         // Move Obstacles & Generate New Ones with consistent speed
@@ -150,15 +153,15 @@ export const useFlappyBird = () => {
           const lastObstacle = newObstacles[newObstacles.length - 1];
           if (
             newObstacles.length === 0 ||
-            (lastObstacle && lastObstacle.x < SCREEN_WIDTH - OBSTACLE_SPACING)
+            (lastObstacle && lastObstacle.x < screenSizeRef.current.width - OBSTACLE_SPACING)
           ) {
             const minHeight = 80;
-            const maxHeight = SCREEN_HEIGHT - OBSTACLE_GAP - minHeight;
+            const maxHeight = screenSizeRef.current.height - OBSTACLE_GAP - minHeight;
             const randomHeight =
               Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight;
 
             newObstacles.push({
-              x: SCREEN_WIDTH,
+              x: screenSizeRef.current.width,
               topHeight: randomHeight,
               passed: false,
               id: obstacleIdCounter.current++,
@@ -190,14 +193,14 @@ export const useFlappyBird = () => {
     if (!gameRunning) return;
 
     // Check floor/ceiling collision
-    if (birdPosition >= SCREEN_HEIGHT - BIRD_SIZE || birdPosition <= 0) {
+    if (birdPosition >= screenHeight - BIRD_SIZE || birdPosition <= 0) {
       handleGameOver();
       return;
     }
 
     // Check obstacle collision
-    const birdLeft = BIRD_START_X;
-    const birdRight = BIRD_START_X + BIRD_SIZE;
+    const birdLeft = birdStartX;
+    const birdRight = birdStartX + BIRD_SIZE;
     const birdTop = birdPosition;
     const birdBottom = birdPosition + BIRD_SIZE;
 
@@ -256,6 +259,7 @@ export const useFlappyBird = () => {
     score,
     bestScore,
     birdRotationStyle,
+    birdStartX,
     // Actions
     jump,
     startGame,
