@@ -227,10 +227,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  workoutInfo: {
-    flex: 1,
-    gap: 2,
-  },
+
   workoutName: {
     color: "#fff",
     fontSize: 15,
